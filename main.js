@@ -4,29 +4,38 @@ const app = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
-const port = 8080;
-const ip = "127.0.0.1"
+const localConfig = require('./local-config.js');
 
 const user = require('./routes/user.js');
 const api = require('./routes/api.js');
 
-//setup bodyparser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+async function start(){
+    
+    //connect to mongodb
+    await mongoose.connect(localConfig.mongodbUrl, {useNewUrlParser: true});
 
-//enable morgan logger
-app.use(logger('dev'));
+    //setup bodyparser
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
-router.use('/user', user);
-router.use('/api', api);
+    //enable morgan logger
+    app.use(logger('dev'));
 
-app.use('/', router);
+    //setup routes
+    router.use('/user', user);
+    router.use('/api', api);
 
-// serve static files in directory "public"
-app.use('/', express.static(__dirname + '/public'));
+    app.use('/', router);
 
-//start server
-app.listen(port, ip, () => {
-    console.log('HTTP: limehome-project server running on: ' +  ip + ":" + port);
-});
+    // serve static files in directory "public"
+    app.use('/', express.static(__dirname + '/public'));
+
+    //start server
+    app.listen(port, ip, () => {
+        console.log('HTTP: limehome-project server running on: ' +  localConfig.serverUrl);
+    });
+}
+
+start();

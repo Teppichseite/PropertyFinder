@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bookingSchema = require('./booking-schema');
+const bookingSchema = require('./booking').schema;
 
 const schema = new mongoose.Schema({ 
     name : {type : String, required : true},

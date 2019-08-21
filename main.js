@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
-const localConfig = require('./local-config.js');
+const localConfig = require('./local-config.json');
 
 const user = require('./routes/user.js');
 const api = require('./routes/api.js');
@@ -14,7 +14,7 @@ const api = require('./routes/api.js');
 async function start(){
     
     //connect to mongodb
-    await mongoose.connect(localConfig.mongodbUrl, {useNewUrlParser: true});
+    //await mongoose.connect(localConfig.mongodbUrl, {useNewUrlParser: true});
 
     //setup bodyparser
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +33,7 @@ async function start(){
     app.use('/', express.static(__dirname + '/public'));
 
     //start server
-    app.listen(port, ip, () => {
+    app.listen(8080,() => {
         console.log('HTTP: limehome-project server running on: ' +  localConfig.serverUrl);
     });
 }

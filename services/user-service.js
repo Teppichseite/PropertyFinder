@@ -1,5 +1,6 @@
 const rp = require('request-promise-native');
 const PropertyDto = require('../dtos/property-dto');
+const BookingDto = require('../dtos/booking-dto');
 
 const User = require('../models/user');
 const Booking = require('../models/booking').model;
@@ -71,7 +72,27 @@ module.exports = class UserService{
 
     }
 
-    static async execBookingRequest(propertyDto){
+    static async execBookingRequest(bookingDto){
+
+        let propertyModel = new Property({
+            name : bookingDto.name,
+            city : "test",
+            longtidude : "0",
+            latitude : "0"
+        });
+
+        /*
+        //save prop
+        let propId = (await propertyModel.save())._id;
+        
+        let bookingModel = new Booking({
+            propertyId : propId
+        });
+
+        */
+
+        
+        
     }
 
 }

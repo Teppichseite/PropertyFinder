@@ -12,6 +12,8 @@ const HERE_EXPLORE_URL = HERE_BASE_URL + "/discover/explore";
 const HERE_APP_ID = "qNzSk1lVT2P84fVVMyeY";
 const HERE_APP_CODE = "WYBRUZj4WML3t-fAQAY3SQ";
 
+const UNKNOWN_VALUE = "unknown";
+
 
 module.exports = class UserService{
 
@@ -30,6 +32,72 @@ module.exports = class UserService{
         //if not then it calls the explore url, with no search query
 
         //setup options for here api call
+        
+        let options = UserService.genHereRequestOptions(longtidude, latitude, searchQuery);
+
+        try{
+            
+            //call here api
+            let data = await rp(options);
+
+            //convert raw objects to PropertyDtos
+            let rawPropList = data.results.items;
+            if(searchQuery){
+                rawPropList = data.results;
+            }
+            let properties = rawPropList.map(UserService.hereRawPropertyToPropertyDto);
+
+            return properties;
+
+        }catch(e){
+            return [];
+        }
+
+    }
+
+    /**
+     * Converts a raw here api property object to a PropertyDto
+     * @param {any} prop - raw here api property object
+     * @returns {PropertyDto}
+     */
+    static hereRawPropertyToPropertyDto(prop){
+        //set invalid values if the prop has no specific location
+        let latidude = 1000;
+        let longtidude = 1000;
+        if(prop.location){
+            latidude = prop.location[0];
+            longtidude = prop.location[1];
+        }
+
+        return new PropertyDto(
+            UserService.checkUnknown(prop.title), 
+            longtidude, 
+            latidude,
+            UserService.checkUnknown(prop.href), 
+            UserService.checkUnknown(prop.vicinity));
+    }
+
+    /**
+     * Returns UNKNWON_VALUE
+     * if !value
+     * @param {string} value 
+     * @returns {string}
+     */
+    static checkUnknown(value){
+        if(!value){
+            return UNKNOWN_VALUE;
+        }
+        return value;
+    }
+
+    /**
+     * Generates the request options for here api
+     * @param {number} longtidude 
+     * @param {number} latitude 
+     * @param {string} searchQuery - query for matching places, optional
+     * @returns {any}
+     */
+    static genHereRequestOptions(longtidude, latitude, searchQuery){
         let atString = latitude + "," + longtidude;
         let options = {
             uri : HERE_EXPLORE_URL,
@@ -46,55 +114,20 @@ module.exports = class UserService{
             options.qs.q = searchQuery;
         }
 
-        try{
-            
-            //call here api
-            let data = await rp(options);
-
-            //convert raw objects to PropertyDtos
-            let rawPropList = data.results.items;
-            if(searchQuery){
-                rawPropList = data.results;
-            }
-            let properties = rawPropList.map((prop) => {
-                return new PropertyDto(
-                    prop.title, 
-                    prop.location, 
-                    prop.href, 
-                    prop.vicinity)
-            });
-
-            return properties;
-
-        }catch(e){
-            return [];
-        }
-
+        return options;
     }
 
     /**
      * Executes a booking request
      * @param {BookingDto} bookingDto 
+     * @returns {Promise<void>}
      */
     static async execBookingRequest(bookingDto){
-
-        //let session = await User.startSession();
-        //session.startTransaction();
 
         try{
             
             //save prop if needed
-            let propId = (await UserService.insertIfNeeded(
-                Property,
-                {name : "roll"},
-                {
-                    $setOnInsert : {
-                        city : "test",
-                        longtidude : 0,
-                        latidude : 0
-                    }
-                }
-                ))._id;
+            let propId = (await UserService.insertProperty())._id;
 
             //setup booking model
             let bookingModel = new Booking({
@@ -102,28 +135,41 @@ module.exports = class UserService{
             });
 
             //save user if needed and add the booking entry
-            let userId = (await UserService.insertIfNeeded(
-                User,
-                {email : bookingDto.email},
-                {
-                    $setOnInsert : {
-                        name : bookingDto.name
-                    },
-                    $push: {
-                        bookings: bookingModel
-                    }
-                },
-                ))._id;
-
-            //await session.commitTransaction();
-            //session.endSession();
+            await UserService.insertUserAndBooking(bookingDto);
 
         }catch(e){
-            //await session.abortTransaction();
-            //session.endSession();
             console.log(e);
         }
         
+    }
+
+    static async insertProperty(){
+        return UserService.insertIfNeeded(
+            Property,
+            {name : "roll"},
+            {
+                $setOnInsert : {
+                    city : "test",
+                    longtidude : 0,
+                    latidude : 0
+                }
+            }
+        );
+    }
+
+    static async insertUserAndBooking(bookingDto){
+        return UserService.insertIfNeeded(
+            User,
+            {email : bookingDto.email},
+            {
+                $setOnInsert : {
+                    name : bookingDto.name
+                },
+                $push: {
+                    bookings: bookingModel
+                }
+            },
+        );
     }
 
     static async insertIfNeeded(model, filterQuery, updateQuery){

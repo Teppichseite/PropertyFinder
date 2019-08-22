@@ -1,7 +1,8 @@
 module.exports = class PropertyDto{
-    constructor(name, location, url, address){
+    constructor(name, longtidude, latidude, url, address){
         this.name = name;
-        this.location = location;
+        this.longtidude = longtidude;
+        this.latidude = latidude;
         this.url = url;
         this.address = address;
     }

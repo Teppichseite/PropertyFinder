@@ -1,18 +1,24 @@
+const apiService = require('../services/api-service');
+
 module.exports = class UserController {
 
-    static findBookingsByPropertyId(req, res){
+    static async findBookingsByPropertyId(req, res){
 
         const propertyId = req.query.propId;
 
-        //call helper
+        let data = await apiService.findBookingsByPropertyId(propertyId);
+
+        res.send(data);
 
     }
 
-    static findBookingsByUserId(req, res){
+    static async findBookingsByUserId(req, res){
 
-        const propertyId = req.query.propId;
+        const userId = req.query.userId;
         
-        //call helper
+        let data = await apiService.findBookingsByUserId(userId);
+
+        res.send(data);
 
     }
 

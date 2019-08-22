@@ -72,27 +72,65 @@ module.exports = class UserService{
 
     }
 
+    /**
+     * Executes a booking request
+     * @param {BookingDto} bookingDto 
+     */
     static async execBookingRequest(bookingDto){
 
-        let propertyModel = new Property({
-            name : bookingDto.name,
-            city : "test",
-            longtidude : "0",
-            latitude : "0"
-        });
+        //let session = await User.startSession();
+        //session.startTransaction();
 
-        /*
-        //save prop
-        let propId = (await propertyModel.save())._id;
-        
-        let bookingModel = new Booking({
-            propertyId : propId
-        });
+        try{
+            
+            //save prop if needed
+            let propId = (await UserService.insertIfNeeded(
+                Property,
+                {name : "roll"},
+                {
+                    $setOnInsert : {
+                        city : "test",
+                        longtidude : 0,
+                        latidude : 0
+                    }
+                }
+                ))._id;
 
-        */
+            //setup booking model
+            let bookingModel = new Booking({
+                propertyId : propId
+            });
 
+            //save user if needed and add the booking entry
+            let userId = (await UserService.insertIfNeeded(
+                User,
+                {email : bookingDto.email},
+                {
+                    $setOnInsert : {
+                        name : bookingDto.name
+                    },
+                    $push: {
+                        bookings: bookingModel
+                    }
+                },
+                ))._id;
+
+            //await session.commitTransaction();
+            //session.endSession();
+
+        }catch(e){
+            //await session.abortTransaction();
+            //session.endSession();
+            console.log(e);
+        }
         
-        
+    }
+
+    static async insertIfNeeded(model, filterQuery, updateQuery){
+        return model.findOneAndUpdate(
+            filterQuery,
+            updateQuery,
+            {new : true, upsert: true});
     }
 
 }

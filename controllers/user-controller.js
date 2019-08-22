@@ -14,11 +14,13 @@ module.exports = class UserController {
 
     }
 
-    static execBookingRequest(req, res){
+    static async execBookingRequest(req, res){
 
-        const propertyObject = req.query.prop;
+        const bookingDto = req.body;
 
-        //call helper
+        await userService.execBookingRequest(bookingDto);
+
+        res.send("props");
 
     }
 

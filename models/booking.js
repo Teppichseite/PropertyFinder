@@ -9,8 +9,8 @@ const schema = new mongoose.Schema({
     },
 
     date : {
-        type : String,
-        default : new Date().toISOString()
+        type : Date,
+        default : Date.now
     }
 
 });

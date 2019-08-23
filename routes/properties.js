@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const apiController = require("../controllers/api-controller");
+const apiController = require("../controllers/property-controller");
 
 router.get('/find_bookings_by_property_id', apiController.findBookingsByPropertyId);
 

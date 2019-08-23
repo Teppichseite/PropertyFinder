@@ -1,4 +1,4 @@
-const apiService = require('../services/api-service');
+const apiService = require('../services/property-service');
 const resWrapper = require('../utils/response-wrapper');
 
 module.exports = class UserController {

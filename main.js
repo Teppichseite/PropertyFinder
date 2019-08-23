@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 
 const localConfig = require('./local-config.json');
 
-const user = require('./routes/user.js');
-const api = require('./routes/api.js');
+const user = require('./routes/users.js');
+const api = require('./routes/properties.js');
 
 async function start(){
     
@@ -24,8 +24,8 @@ async function start(){
     app.use(logger('dev'));
 
     //setup routes
-    router.use('/user', user);
-    router.use('/api', api);
+    router.use('/users', user);
+    router.use('/properties', api);
 
     app.use('/', router);
 

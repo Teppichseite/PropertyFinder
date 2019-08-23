@@ -34,24 +34,18 @@ module.exports = class UserService{
         //setup options for here api call
         
         let options = UserService.genHereRequestOptions(longtidude, latitude, searchQuery);
+        
+        //call here api
+        let data = await rp(options);
 
-        try{
-            
-            //call here api
-            let data = await rp(options);
-
-            //convert raw objects to PropertyDtos
-            let rawPropList = data.results.items;
-            if(searchQuery){
-                rawPropList = data.results;
-            }
-            let properties = rawPropList.map(UserService.hereRawPropertyToPropertyDto);
-
-            return properties;
-
-        }catch(e){
-            return [];
+        //convert raw objects to PropertyDtos
+        let rawPropList = data.results.items;
+        if(searchQuery){
+            rawPropList = data.results;
         }
+        let properties = rawPropList.map(UserService.hereRawPropertyToPropertyDto);
+
+        return properties;
 
     }
 
@@ -123,23 +117,17 @@ module.exports = class UserService{
      * @returns {Promise<void>}
      */
     static async execBookingRequest(bookingDto){
-
-        try{
             
-            //save prop if needed
-            let propId = (await UserService.insertProperty(bookingDto))._id;
+        //save prop if needed
+        let propId = (await UserService.insertProperty(bookingDto))._id;
 
-            //setup booking model
-            let bookingModel = new Booking({
-                propertyId : propId
-            });
+        //setup booking model
+        let bookingModel = new Booking({
+            propertyId : propId
+        });
 
-            //save user if needed and add the booking entry
-            await UserService.insertUserAndBooking(bookingDto, bookingModel);
-
-        }catch(e){
-            console.log(e);
-        }
+        //save user if needed and add the booking entry
+        await UserService.insertUserAndBooking(bookingDto, bookingModel);
         
     }
 

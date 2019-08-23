@@ -13,6 +13,7 @@ module.exports = class ResponseWrapper{
             let result = await promiseFunc();
             ResponseWrapper.sendResponse(res, true, result);
         }catch(e){
+            console.log(e);
             ResponseWrapper.sendResponse(res, false, null, DEFAULT_ERROR_MSG);
         }
     }

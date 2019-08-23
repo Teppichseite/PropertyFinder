@@ -6,6 +6,8 @@ const User = require('../models/user');
 const Booking = require('../models/booking').model;
 const Property = require('../models/property');
 
+const MongoUtils = require('../utils/mongo-utils');
+
 const HERE_BASE_URL = "https://places.cit.api.here.com/places/v1"
 const HERE_AUTO_SUGGEST_URL = HERE_BASE_URL + "/autosuggest";
 const HERE_EXPLORE_URL = HERE_BASE_URL + "/discover/explore";
@@ -34,7 +36,7 @@ module.exports = class UserService{
         //setup options for here api call
         
         let options = UserService.genHereRequestOptions(longtidude, latitude, searchQuery);
-        
+
         //call here api
         let data = await rp(options);
 
@@ -138,7 +140,7 @@ module.exports = class UserService{
      * @returns {Promise<findAndModifyWriteOpResultObject>}
      */
     static async insertProperty(bookingDto){
-        return UserService.insertIfNeeded(
+        return MongoUtils.insertIfNeeded(
             Property,
             //find property by name and position
             {
@@ -163,7 +165,7 @@ module.exports = class UserService{
      * @returns {Promise<findAndModifyWriteOpResultObject>}
      */
     static async insertUserAndBooking(bookingDto, bookingModel){
-        return UserService.insertIfNeeded(
+        return MongoUtils.insertIfNeeded(
             User,
             {email : bookingDto.user.email},
             {
@@ -175,24 +177,6 @@ module.exports = class UserService{
                 }
             },
         );
-    }
-
-    /**
-     * Inserts a model if needed
-     * Updates a model
-     * To specify values on insert use $setOnInsert
-     * in the updateQuery
-     * @param {Model} model 
-     * @param {any} filterQuery 
-     * @param {any} updateQuery 
-     * @returns {Promise<findAndModifyWriteOpResultObject>}
-     */
-    static async insertIfNeeded(model, filterQuery, updateQuery){
-        model.findOneAndUpdate()
-        return model.findOneAndUpdate(
-            filterQuery,
-            updateQuery,
-            {new : true, upsert: true});
     }
 
 }

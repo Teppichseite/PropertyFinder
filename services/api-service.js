@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const ObjectId = require('mongoose').Types.ObjectId;
-const BookingDto = require('../dtos/booking-dto');
+const MongoUtils = require('../utils/mongo-utils');
 
 module.exports = class ApiService{
 
@@ -29,7 +29,7 @@ module.exports = class ApiService{
 
         //convert result to BookingDto[]
         return rawBookings
-            .map(ApiService.rawBookingToBookingDtoWithUser);
+            .map(MongoUtils.rawBookingToBookingDtoWithUser);
     }
 
     /**
@@ -57,41 +57,7 @@ module.exports = class ApiService{
 
         //convert result to BookingDto[]
         return rawBookings
-            .map(ApiService.rawBookingToBookingDto);
-    }
-
-    /**
-     * Converts a raw mongodb user/booking object to a BookingDto
-     * also contains the user
-     * @param {any} rawBooking 
-     * @returns {BookingDto}
-     */
-    static rawBookingToBookingDtoWithUser(rawBooking){
-        return ApiService.rawBookingToBookingDto(rawBooking, true);
-    }
-
-    /**
-     * Converts a raw mongodb user/booking object to a BookingDto
-     * @param {any} rawBooking 
-     * @param {boolean} showUser - if true then user of the booking will be in the result dto
-     * @returns {BookingDto}
-     */
-    static rawBookingToBookingDto(rawBooking, showUser){
-        let email = null;
-        if(showUser){
-            email = rawBooking.email;
-        }
-
-        return new BookingDto(
-            rawBooking.bookings._id,
-            rawBooking.bookings.propertyObject[0]._id,
-            rawBooking.bookings.propertyObject[0].name,
-            rawBooking.bookings.propertyObject[0].longtidude,
-            rawBooking.bookings.propertyObject[0].latidude,
-            rawBooking.bookings.propertyObject[0].city,
-            rawBooking.bookings.propertyObject[0].url,
-            rawBooking._id, rawBooking.name, email
-            );
+            .map(MongoUtils.rawBookingToBookingDto);
     }
 
 }

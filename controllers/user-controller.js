@@ -1,4 +1,5 @@
 const userService = require('../services/user-service');
+const resWrapper = require('../utils/response-wrapper');
 
 module.exports = class UserController {
 
@@ -8,9 +9,10 @@ module.exports = class UserController {
         const latidude = req.query.latidude;
         const searchQuery = req.query.search_query;
 
-        let props = await userService.findProperties(longtidude, latidude, searchQuery);
-
-        res.send(props);
+        resWrapper.execPromise(
+            res, 
+            () => userService.findProperties(longtidude, latidude, searchQuery)
+        );
 
     }
 
@@ -18,9 +20,10 @@ module.exports = class UserController {
 
         const bookingDto = req.body;
 
-        await userService.execBookingRequest(bookingDto);
-
-        res.send("props");
+        resWrapper.execPromise(
+            res, 
+            () => userService.execBookingRequest(bookingDto)
+        );
 
     }
 

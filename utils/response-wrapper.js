@@ -1,4 +1,6 @@
-module.exports = class Response{
+const DEFAULT_ERROR_MSG = "some_error_occurred"
+
+module.exports = class ResponseWrapper{
 
     /**
      * Executes a promise and sends a result depending on the result
@@ -8,10 +10,11 @@ module.exports = class Response{
     static async execPromise(res, promiseFunc){
         try{
             //exec promise
-            let res = await promiseFunc();
-            Response.sendResponse(res, true, res);
+            let result = await promiseFunc();
+            ResponseWrapper.sendResponse(res, true, result);
         }catch(e){
-            Response.sendResponse(res, false, null, "Error");
+            console.log(e);
+            ResponseWrapper.sendResponse(res, false, null, DEFAULT_ERROR_MSG);
         }
     }
 

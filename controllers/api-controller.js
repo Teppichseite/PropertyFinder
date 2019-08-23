@@ -1,4 +1,5 @@
 const apiService = require('../services/api-service');
+const resWrapper = require('../utils/response-wrapper');
 
 module.exports = class UserController {
 
@@ -6,19 +7,21 @@ module.exports = class UserController {
 
         const propertyId = req.query.propertyId;
 
-        let data = await apiService.findBookingsByPropertyId(propertyId);
-
-        res.send(data);
+        resWrapper.execPromise(
+            res, 
+            () => apiService.findBookingsByPropertyId(propertyId)
+        );
 
     }
 
     static async findBookingsByUserId(req, res){
 
         const userId = req.query.userId;
-        
-        let data = await apiService.findBookingsByUserId(userId);
 
-        res.send(data);
+        resWrapper.execPromise(
+            res, 
+            () => apiService.findBookingsByUserId(userId)
+        );
 
     }
 

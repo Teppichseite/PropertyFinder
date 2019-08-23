@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const apiController = require("../controllers/property-controller");
+const propertyController = require("../controllers/property-controller");
 
-router.get('/find_bookings_by_property_id', apiController.findBookingsByPropertyId);
+router.get('/:propertyId/bookings', propertyController.findBookingsByPropertyId);
 
-router.get('/find_bookings_by_user_id', apiController.findBookingsByUserId);
+router.get('/', propertyController.findProperties);
 
 module.exports = router;

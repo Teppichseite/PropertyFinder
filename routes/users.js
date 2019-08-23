@@ -3,8 +3,8 @@ const router = express.Router();
 
 const uController = require("../controllers/user-controller.js");
 
-router.get('/find_properties', uController.findProperties);
+router.get('/:userId/bookings', uController.findBookingsByUserId);
 
-router.post('/exec_booking_request', uController.execBookingRequest);
+router.post('/booking/new', uController.createNewBooking);
 
 module.exports = router;

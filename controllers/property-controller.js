@@ -1,26 +1,28 @@
-const apiService = require('../services/property-service');
+const propertyService = require('../services/property-service');
 const resWrapper = require('../utils/response-wrapper');
 
-module.exports = class UserController {
+module.exports = class PropertyController {
 
     static async findBookingsByPropertyId(req, res){
 
-        const propertyId = req.query.propertyId;
+        const propertyId = req.params.propertyId;
 
         resWrapper.execPromise(
             res, 
-            () => apiService.findBookingsByPropertyId(propertyId)
+            () => propertyService.findBookingsByPropertyId(propertyId)
         );
 
     }
 
-    static async findBookingsByUserId(req, res){
+    static async findProperties(req, res){
 
-        const userId = req.query.userId;
+        const longtidude = req.query.longtidude;
+        const latidude = req.query.latidude;
+        const searchQuery = req.query.search_query;
 
         resWrapper.execPromise(
             res, 
-            () => apiService.findBookingsByUserId(userId)
+            () => userService.findProperties(longtidude, latidude, searchQuery)
         );
 
     }

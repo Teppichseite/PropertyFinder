@@ -127,7 +127,7 @@ module.exports = class UserService{
         try{
             
             //save prop if needed
-            let propId = (await UserService.insertProperty())._id;
+            let propId = (await UserService.insertProperty(bookingDto))._id;
 
             //setup booking model
             let bookingModel = new Booking({
@@ -135,7 +135,7 @@ module.exports = class UserService{
             });
 
             //save user if needed and add the booking entry
-            await UserService.insertUserAndBooking(bookingDto);
+            await UserService.insertUserAndBooking(bookingDto, bookingModel);
 
         }catch(e){
             console.log(e);
@@ -143,21 +143,38 @@ module.exports = class UserService{
         
     }
 
-    static async insertProperty(){
+    /**
+     * Inserts a property if does not exist
+     * identifies property by name and location
+     * @param {BookingDto} bookingDto 
+     * @returns {Promise<findAndModifyWriteOpResultObject>}
+     */
+    static async insertProperty(bookingDto){
         return UserService.insertIfNeeded(
             Property,
-            {name : "roll"},
+            //find property by name and position
+            {
+                name : bookingDto.property_name,
+                longtidude : bookingDto.longtidude,
+                latidude : bookingDto.latidude
+            },
             {
                 $setOnInsert : {
-                    city : "test",
-                    longtidude : 0,
-                    latidude : 0
+                    city : bookingDto.city
                 }
             }
         );
     }
 
-    static async insertUserAndBooking(bookingDto){
+    /**
+     * Inserts a user if does not exist
+     * Insert the bookings model
+     * identifies user by email of the bookingDto
+     * @param {BookingDto} bookingDto 
+     * @param {Booking} bookingModel
+     * @returns {Promise<findAndModifyWriteOpResultObject>}
+     */
+    static async insertUserAndBooking(bookingDto, bookingModel){
         return UserService.insertIfNeeded(
             User,
             {email : bookingDto.email},
@@ -172,7 +189,18 @@ module.exports = class UserService{
         );
     }
 
+    /**
+     * Inserts a model if needed
+     * Updates a model
+     * To specify values on insert use $setOnInsert
+     * in the updateQuery
+     * @param {Model} model 
+     * @param {any} filterQuery 
+     * @param {any} updateQuery 
+     * @returns {Promise<findAndModifyWriteOpResultObject>}
+     */
     static async insertIfNeeded(model, filterQuery, updateQuery){
+        model.findOneAndUpdate()
         return model.findOneAndUpdate(
             filterQuery,
             updateQuery,

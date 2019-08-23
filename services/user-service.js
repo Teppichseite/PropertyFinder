@@ -177,10 +177,10 @@ module.exports = class UserService{
     static async insertUserAndBooking(bookingDto, bookingModel){
         return UserService.insertIfNeeded(
             User,
-            {email : bookingDto.email},
+            {email : bookingDto.user.email},
             {
                 $setOnInsert : {
-                    name : bookingDto.name
+                    name : bookingDto.user.name
                 },
                 $push: {
                     bookings: bookingModel

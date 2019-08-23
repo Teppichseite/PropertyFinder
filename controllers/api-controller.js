@@ -4,7 +4,7 @@ module.exports = class UserController {
 
     static async findBookingsByPropertyId(req, res){
 
-        const propertyId = req.query.propId;
+        const propertyId = req.query.propertyId;
 
         let data = await apiService.findBookingsByPropertyId(propertyId);
 

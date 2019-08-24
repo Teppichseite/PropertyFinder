@@ -8,7 +8,7 @@ router.get('/:propertyId/bookings',
     propertyValidator.validateFindBookingsByPropertyId(), 
     propertyController.findBookingsByPropertyId);
 
-router.get('/', 
+router.post('/', 
     propertyValidator.validateFindProperties(), 
     propertyController.findProperties);
 

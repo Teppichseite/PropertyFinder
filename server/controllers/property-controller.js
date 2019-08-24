@@ -17,10 +17,6 @@ module.exports = class PropertyController {
 
     static async findProperties(req, res){
 
-        const longtidude = req.query.longtidude;
-        const latidude = req.query.latidude;
-        const searchQuery = req.query.search_query;
-
         const findPropertiesDto = req.query;
 
         resWrapper.execPromise(

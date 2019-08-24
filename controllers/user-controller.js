@@ -8,6 +8,7 @@ module.exports = class UserController {
         const bookingDto = req.body;
 
         resWrapper.execPromise(
+            req,
             res, 
             () => userService.execBookingRequest(bookingDto)
         );
@@ -19,6 +20,7 @@ module.exports = class UserController {
         const userId = req.params.userId;
 
         resWrapper.execPromise(
+            req,
             res, 
             () => userService.findBookingsByUserId(userId)
         );

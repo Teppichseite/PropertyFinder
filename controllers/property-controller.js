@@ -8,6 +8,7 @@ module.exports = class PropertyController {
         const propertyId = req.params.propertyId;
 
         resWrapper.execPromise(
+            req,
             res, 
             () => propertyService.findBookingsByPropertyId(propertyId)
         );
@@ -21,6 +22,7 @@ module.exports = class PropertyController {
         const searchQuery = req.query.search_query;
 
         resWrapper.execPromise(
+            req,
             res, 
             () => userService.findProperties(longtidude, latidude, searchQuery)
         );

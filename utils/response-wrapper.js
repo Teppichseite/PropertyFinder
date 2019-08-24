@@ -1,13 +1,24 @@
-const DEFAULT_ERROR_MSG = "some_error_occurred"
+const { validationResult } = require('express-validator');
+
+const INVALID_REQUEST_ERROR_MSG = "invalid_request_parameters";
+const DEFAULT_ERROR_MSG = "some_error_occurred";
 
 module.exports = class ResponseWrapper{
 
     /**
      * Executes a promise and sends a result depending on the result
+     * also checks for validation errors
+     * @param {Request} req - Express Request
      * @param {Response} res - Express response
      * @param {function} promiseFunc - function that returns a promise
      */
-    static async execPromise(res, promiseFunc){
+    static async execPromise(req, res, promiseFunc){
+
+        //check errors
+        if(ResponseWrapper.hasValidationErrors(req, res)){
+            return;
+        }
+
         try{
             //exec promise
             let result = await promiseFunc();
@@ -16,6 +27,22 @@ module.exports = class ResponseWrapper{
             console.log(e);
             ResponseWrapper.sendResponse(res, false, null, DEFAULT_ERROR_MSG);
         }
+    }
+
+    /**
+     * If there are validation errors from express-validator, 
+     * an error message will be sent and true will be returned
+     * @param {Request} req - Express Request
+     * @param {Response} res - Express response
+     * @returns {boolean}
+     */
+    static hasValidationErrors(req, res){
+        const validationErrors = validationResult(req);
+        if(!validationErrors.isEmpty()){
+            ResponseWrapper.sendResponse(res, false, null, INVALID_REQUEST_ERROR_MSG);
+            return true;
+        } 
+        return false;
     }
 
     /**

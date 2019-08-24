@@ -1,10 +1,10 @@
-const { params, query } = require('express-validator');
+const { param, body } = require('express-validator');
 
 module.exports = class PropertyValidator{
 
     static validateFindBookingsByPropertyId(){
         return [
-            params('propertyId').exists()
+            param('propertyId').exists()
         ];
     }
 

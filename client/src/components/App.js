@@ -1,10 +1,15 @@
 import React from 'react'
 import Frame from './Frame';
+import PropertyItem from './PropertyItem';
 
-const App = () => (
-  <div>
-    <Frame/>
-  </div>
-)
+export default class App extends React.Component {
 
-export default App;
+    render() {
+        return (
+            <Frame>
+                <PropertyItem name="test"></PropertyItem>
+            </Frame>
+        );
+    }
+
+}

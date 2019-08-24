@@ -43,12 +43,10 @@ module.exports = class PropertyService{
 
     /**
      * Returns properties near the given location
-     * @param {number} longtidude 
-     * @param {number} latitude 
-     * @param {string} searchQuery - query for matching places, optional
+     * @param {FindPropertiesDto} findPropertiesDto
      * @returns {Promise<PropertyDto[]>}
      */
-    static async findProperties(longtidude, latitude, searchQuery){
+    static async findProperties(findPropertiesDto){
         
         //Finds properties with Here API
         //url: https://developer.here.com/documentation
@@ -57,14 +55,14 @@ module.exports = class PropertyService{
 
         //setup options for here api call
         
-        let options = PropertyService.genHereRequestOptions(longtidude, latitude, searchQuery);
+        let options = PropertyService.genHereRequestOptions(findPropertiesDto);
 
         //call here api
         let data = await rp(options);
 
         //convert raw objects to PropertyDtos
         let rawPropList = data.results.items;
-        if(searchQuery){
+        if(findPropertiesDto.search_query){
             rawPropList = data.results;
         }
         let properties = rawPropList.map(PropertyService.hereRawPropertyToPropertyDto);
@@ -115,8 +113,8 @@ module.exports = class PropertyService{
      * @param {string} searchQuery - query for matching places, optional
      * @returns {any}
      */
-    static genHereRequestOptions(longtidude, latitude, searchQuery){
-        let atString = latitude + "," + longtidude;
+    static genHereRequestOptions(dto){
+        let atString = dto.latitude + "," + dto.longtidude;
         let options = {
             uri : HERE_EXPLORE_URL,
             json : true,
@@ -127,9 +125,9 @@ module.exports = class PropertyService{
             }
         };
 
-        if(searchQuery){
+        if(dto.search_query){
             options.uri = HERE_AUTO_SUGGEST_URL;
-            options.qs.q = searchQuery;
+            options.qs.q = dto.search_query;
         }
 
         return options;

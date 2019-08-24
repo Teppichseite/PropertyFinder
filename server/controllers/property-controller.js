@@ -21,10 +21,12 @@ module.exports = class PropertyController {
         const latidude = req.query.latidude;
         const searchQuery = req.query.search_query;
 
+        const findPropertiesDto = req.query;
+
         resWrapper.execPromise(
             req,
             res, 
-            () => userService.findProperties(longtidude, latidude, searchQuery)
+            () => userService.findProperties(findPropertiesDto)
         );
 
     }

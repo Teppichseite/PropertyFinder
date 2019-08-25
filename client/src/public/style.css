@@ -1,3 +1,17 @@
+body, html{
+    height: 97%;
+    margin: 0;
+}
+
+#root{
+    height: 100%;
+}
+
+.outer-frame{
+    position: relative;
+    height: 100% !important;
+}
+
 .inner-frame{
     padding-top: 20px;
     text-align: center;
@@ -17,4 +31,10 @@
 
 .text-field{
     width: 100%;
+}
+
+.reload-fab{
+    position: absolute !important;
+    right: 30px;
+    bottom: 10px;
 }

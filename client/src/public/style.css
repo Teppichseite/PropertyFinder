@@ -1,6 +1,7 @@
 body, html{
     height: 97%;
     margin: 0;
+    background: #F5F5F5;
 }
 
 #root{
@@ -37,4 +38,18 @@ body, html{
     position: absolute !important;
     right: 30px;
     bottom: 10px;
+}
+
+.search-prop-input{
+    padding: 20px;
+    border-radius: 7px;
+    border: none;
+    font-size: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #F5F5F5
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }

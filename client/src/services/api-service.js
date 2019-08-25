@@ -1,4 +1,4 @@
-import { request } from 'request-native-promise';
+const request = require('request-promise-native');
 
 const API_URL = "http://127.0.0.1:8080";
 const FIND_PROPS_URL = API_URL + "/properties";
@@ -11,7 +11,7 @@ export default class ApiService{
      * @param {BookingDto} bookingDto 
      * @returns {Promise<>}
      */
-    static async createNewBooking(bookingDto){
+    static async createNewBookingApiCall(bookingDto){
         let data = await request({
             method: 'POST',
             uri : CREATE_BOOKING_URL,
@@ -25,7 +25,7 @@ export default class ApiService{
      * @param {FindPropertiesDto} findPropertiesDto 
      * @returns {Promise<PropertyDto[]>}
      */
-    static async findProperties(findPropertiesDto){
+    static async findPropertiesApiCall(findPropertiesDto){
         let data = await request({
             method: 'POST',
             uri : FIND_PROPS_URL,

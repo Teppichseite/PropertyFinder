@@ -11,6 +11,7 @@ import '../public/style.css';
 export default class PropertyList extends React.Component {
 
     render() {
+
         return (
             <div>
             <ListItem className="property-item">
@@ -32,15 +33,23 @@ export default class PropertyList extends React.Component {
     }
 
     displayList(){
+
+        console.log(this.props);
+
         if(this.props.isPending){
             return (<CircularProgress className="center"/>);
         }else if(this.props.hasError){
             return (<h3 className="center">An error occurred :(</h3>);
         }else{
+
+            if(!this.props.properties){
+                return;
+            }
+
             return (<List>
-            {this.props.properties.map((prop) => (
-                <PropertyItem name={prop} onClick={this.props.onClick} />
-            ))}
+                {this.props.properties.map((prop) => (
+                <PropertyItem name={prop.name} onClick={this.props.onClick} />
+                ))}
             </List>)
         }
     }

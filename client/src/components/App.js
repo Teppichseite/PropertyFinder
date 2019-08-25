@@ -1,13 +1,14 @@
 import React from 'react'
 import Frame from './Frame';
 import PropertyItem from './PropertyItem';
+import PropertyList from './PropertyList';
 
 export default class App extends React.Component {
 
     render() {
         return (
             <Frame>
-                <PropertyItem name="test"></PropertyItem>
+                <PropertyList properties={["a", "b", "df", "df"]} isPending={false}></PropertyList>
             </Frame>
         );
     }

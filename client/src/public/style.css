@@ -4,6 +4,17 @@
 }
 
 .property-item{
+    border-radius: 7px !important;
     background : #FFFFFF !important;
     margin : 5px !important;
+}
+
+.booking-dialog-holder{
+    padding: 20px;
+    border-radius: 7px;
+    background: #FFFFFF;
+}
+
+.text-field{
+    width: 100%;
 }

@@ -10,7 +10,7 @@ export default class App extends React.Component {
         return (
             <Frame>
                 <PropertyList properties={["a", "b", "df", "df"]} isPending={false}></PropertyList>
-                <BookingDialog></BookingDialog>
+                <BookingDialog property={{city : "test"}}/>
             </Frame>
         );
     }

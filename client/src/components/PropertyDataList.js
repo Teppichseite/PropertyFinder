@@ -11,17 +11,11 @@ import LanguageIcon from '@material-ui/icons/Language';
 export default class PropertyDataList extends React.Component {
 
     render(){
-
-        const propT = {
-            property_name : "TestProp",
-            city : "Munich"
-        }
-
         return (
             <List>
-                {this.genListItem(propT, "property_name")}
-                {this.genListItem(propT, "city")}
-                {this.genListItem(propT, "url")}
+                {this.genListItem(this.props.property, "property_name")}
+                {this.genListItem(this.props.property, "city")}
+                {this.genListItem(this.props.property, "url")}
             </List>
         );
     }

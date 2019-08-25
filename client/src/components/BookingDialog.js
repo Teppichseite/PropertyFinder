@@ -24,7 +24,7 @@ export default class BookingDialog extends React.Component {
         return (
             <Dialog aria-labelledby="simple-dialog-title" open={true}>
                 <Container className="booking-dialog-holder">
-                    <PropertyDataList></PropertyDataList>
+                    <PropertyDataList property={this.props.property}/>
                     <form noValidate autoComplete="off">
                         <TextField
                             className="text-field"

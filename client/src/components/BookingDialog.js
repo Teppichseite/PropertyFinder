@@ -145,10 +145,12 @@ export default class BookingDialog extends React.Component {
 
         console.log(this.props);
 
+        let comp;
+
         if (this.props.isPending) {
-            return (<CircularProgress/>);
+            comp = (<CircularProgress />);
         } else if (this.props.hasError) {
-            return (
+            comp = (
                 <Typography variant='subtitle1'>
                     <label>An error occurred.
                     Watch out that the e-mail is valid and that the from date is before the to date
@@ -157,14 +159,19 @@ export default class BookingDialog extends React.Component {
             );
         }
 
-        return <Button
-            variant="contained"
-            color="primary"
-            className="text-field book-btn"
-            onClick={this.onBookingButtonClick
-                .bind(this)}>
-            Commit booking
+        return (
+            <div>
+                {comp}
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className="text-field book-btn"
+                    onClick={this.onBookingButtonClick
+                        .bind(this)}>
+                    Commit booking
             </Button>
+            </div>
+        )
     }
 
 }

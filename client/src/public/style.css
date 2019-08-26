@@ -28,6 +28,7 @@ body, html{
     padding: 20px;
     border-radius: 7px;
     background: #FFFFFF;
+    text-align: center;
 }
 
 .text-field{

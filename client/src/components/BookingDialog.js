@@ -137,7 +137,11 @@ export default class BookingDialog extends React.Component {
         if (this.props.isPending) {
             return (<CircularProgress className="center" />);
         } else if (this.props.hasError) {
-            return (<h3 className="center">An error occurred :(</h3>);
+            return (
+                <Typography>
+                <h4 className="center">An error occurred :(</h4>
+                </Typography>
+                );
         }
 
         return <Button

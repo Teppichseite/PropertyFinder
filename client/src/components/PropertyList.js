@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import PropertyItem from './PropertyItem';
 import ListItem from '@material-ui/core/ListItem';
@@ -39,7 +40,11 @@ export default class PropertyList extends React.Component {
         if(this.props.isPending){
             return (<CircularProgress className="center"/>);
         }else if(this.props.hasError){
-            return (<h3 className="center">An error occurred :(</h3>);
+            return (
+                <Typography>
+                <h4 className="center">An error occurred :(</h4>
+                </Typography>
+            );
         }else{
 
             if(!this.props.properties){

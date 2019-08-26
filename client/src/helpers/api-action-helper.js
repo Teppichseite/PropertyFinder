@@ -4,22 +4,41 @@ import {findPropsPending, findPropsSuccess, findPropsError} from '../actions/fin
 
 export default class ApiActionHelper{
 
-    static findProperties(dispatchFunc){
-        let findPropertiesDto = new FindPropertiesDto(
-            11.6465, 48.1952
-        );
-        
+    static findProperties(dispatch){
+        this.getGeoLocation(dispatch, (pos) => {
+
+            let findPropertiesDto = new FindPropertiesDto(
+                pos.coords.longitude, 
+                pos.coords.latitude);
+
+            console.log(pos.coords);
+
+            this.callFindPropertiesApi(dispatch, findPropertiesDto)
+        });
+    }
+
+    static getGeoLocation(dispatch, callback){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(callback);
+        }else{
+            dispatch(findPropsError());
+        }
+    }
+
+    static callFindPropertiesApi(dispatch, findPropertiesDto){
+
         ApiService.findPropertiesApiCall(findPropertiesDto).then((propertyDto) => {
-            dispatchFunc(findPropsSuccess(propertyDto));
+            dispatch(findPropsSuccess(propertyDto));
 
         }).catch((e) => {
 
             console.log(e);
 
-            dispatchFunc(findPropsError());
+            dispatch(findPropsError());
 
         });
-        dispatchFunc(findPropsPending());
+        dispatch(findPropsPending());
+
     }
 
 }

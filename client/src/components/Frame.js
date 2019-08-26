@@ -6,6 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import ReplayIcon from '@material-ui/icons/Replay';
+import Button from '@material-ui/core/Button';
+import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { Container } from '@material-ui/core';
 import '../public/style.css';
 
@@ -16,11 +18,9 @@ export default class Frame extends React.Component {
             <div className="outer-frame">
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
+                        <LocationSearchingIcon className="padding-lr"/>
                         <Typography variant="h6" >
-                            Limehome Project
+                            Find properties near your place
                         </Typography>
                     </Toolbar>
                 </AppBar>

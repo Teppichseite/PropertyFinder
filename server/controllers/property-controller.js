@@ -17,12 +17,12 @@ module.exports = class PropertyController {
 
     static async findProperties(req, res){
 
-        const findPropertiesDto = req.query;
+        const findPropertiesDto = req.body;
 
         resWrapper.execPromise(
             req,
             res, 
-            () => userService.findProperties(findPropertiesDto)
+            () => propertyService.findProperties(findPropertiesDto)
         );
 
     }

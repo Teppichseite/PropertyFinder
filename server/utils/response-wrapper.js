@@ -38,6 +38,7 @@ module.exports = class ResponseWrapper{
      */
     static hasValidationErrors(req, res){
         const validationErrors = validationResult(req);
+        console.log(validationErrors);
         if(!validationErrors.isEmpty()){
             ResponseWrapper.sendResponse(res, false, null, INVALID_REQUEST_ERROR_MSG);
             return true;

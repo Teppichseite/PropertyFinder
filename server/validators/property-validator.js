@@ -10,13 +10,9 @@ module.exports = class PropertyValidator{
 
     static validateFindProperties(){
         return [
-            body('property_name').exists().isString(),
             body('longtidude').exists().isFloat(),
             body('latidude').exists().isFloat(),
-            body('city').optional().isString(),
-            body('url').optional().isString(),
-            body('user.name').exists().isString(),
-            body('user.name').exists().isEmail()
+            body('search_query').optional().isString()
         ];
     }
 

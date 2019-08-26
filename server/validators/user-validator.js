@@ -1,4 +1,4 @@
-const { param, query } = require('express-validator');
+const { param, body } = require('express-validator');
 
 module.exports = class UserValidator{
 
@@ -10,9 +10,13 @@ module.exports = class UserValidator{
 
     static validateCreateNewBooking(){
         return [
-            query('longtidude').exists().isFloat(),
-            query('latidude').exists().isFloat(),
-            query('search_query').exists().isString()
+            body('property_name').exists().isString(),
+            body('longtidude').exists().isFloat(),
+            body('latidude').exists().isFloat(),
+            body('city').optional().isString(),
+            body('url').optional().isString(),
+            body('user.name').exists().isString(),
+            body('user.email').exists().isEmail()
         ];
     }
 

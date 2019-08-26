@@ -6,8 +6,6 @@ const Property = require('../models/property');
 
 const MongoUtils = require('../utils/mongo-utils');
 
-const UNKNOWN_VALUE = "unknown";
-
 
 module.exports = class UserService{
 

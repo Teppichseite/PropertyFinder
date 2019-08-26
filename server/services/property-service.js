@@ -11,6 +11,8 @@ const HERE_EXPLORE_URL = HERE_BASE_URL + "/discover/explore";
 const HERE_APP_ID = "qNzSk1lVT2P84fVVMyeY";
 const HERE_APP_CODE = "WYBRUZj4WML3t-fAQAY3SQ";
 
+const UNKNOWN_VALUE = "unknown";
+
 module.exports = class PropertyService{
 
     /**
@@ -114,7 +116,7 @@ module.exports = class PropertyService{
      * @returns {any}
      */
     static genHereRequestOptions(dto){
-        let atString = dto.latitude + "," + dto.longtidude;
+        let atString = dto.latidude + "," + dto.longtidude;
         let options = {
             uri : HERE_EXPLORE_URL,
             json : true,

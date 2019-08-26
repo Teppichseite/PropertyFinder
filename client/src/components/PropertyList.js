@@ -48,7 +48,7 @@ export default class PropertyList extends React.Component {
 
             return (<List>
                 {this.props.properties.map((prop) => (
-                <PropertyItem name={prop.name} onClick={this.props.onClick} />
+                <PropertyItem property={prop} onClick={this.props.onClick} />
                 ))}
             </List>)
         }

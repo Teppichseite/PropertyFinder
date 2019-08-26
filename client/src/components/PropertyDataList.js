@@ -7,13 +7,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import BusinessIcon from '@material-ui/icons/Business';
 import LocationIcon from '@material-ui/icons/MyLocation';
 import LanguageIcon from '@material-ui/icons/Language';
+import Link from '@material-ui/core/Link';
 
 export default class PropertyDataList extends React.Component {
 
     render(){
         return (
             <List>
-                {this.genListItem(this.props.property, "property_name")}
+                {this.genListItem(this.props.property, "name")}
                 {this.genListItem(this.props.property, "city")}
                 {this.genListItem(this.props.property, "url")}
             </List>
@@ -29,8 +30,9 @@ export default class PropertyDataList extends React.Component {
         }
 
         let icon;
+        let isLink = false;
         switch(key){
-            case "property_name":
+            case "name":
                 icon = (<BusinessIcon/>);
                 break;
             case "city":
@@ -38,6 +40,7 @@ export default class PropertyDataList extends React.Component {
                 break;
             case "url":
                 icon = (<LanguageIcon/>)
+                isLink = true;
                 break;
         }
 
@@ -46,7 +49,12 @@ export default class PropertyDataList extends React.Component {
                 <ListItemIcon>
                     {icon}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                {!isLink ? 
+                <ListItemText primary={text}></ListItemText>
+                :
+                <Link href={text}>
+                    More Data
+                </Link>}
             </ListItem>
         );
     }

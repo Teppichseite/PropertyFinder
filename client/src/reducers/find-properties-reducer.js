@@ -26,6 +26,6 @@ export default function findProperties(state = defaultState, action){
             return result;
     }
 
-    return result;
+    return state;
 
 }

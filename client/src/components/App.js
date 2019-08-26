@@ -4,6 +4,7 @@ import PropertyItem from './PropertyItem';
 import PropertyListContainer from '../containers/property-list-container';
 import BookingDialog from './BookingDialog';
 import ApiActionHelper from '../helpers/api-action-helper';
+import BookingDialogContainer from '../containers/booking-dialog-container';
 
 export default class App extends React.Component {
 
@@ -15,7 +16,7 @@ export default class App extends React.Component {
         return (
             <Frame>
                 <PropertyListContainer/>
-                <BookingDialog property={{city : "test"}}/>
+                <BookingDialogContainer/>
             </Frame>
         );
     }

@@ -21,8 +21,16 @@ import PropertyDataList from './PropertyDataList';
 export default class BookingDialog extends React.Component {
 
     render(){
+
+        if(!this.props.property){
+            return null;
+        }
+
         return (
-            <Dialog aria-labelledby="simple-dialog-title" open={false}>
+            <Dialog 
+                onClose={this.props.onClose} 
+                aria-labelledby="simple-dialog-title" 
+                open={true}>
                 <Container className="booking-dialog-holder">
                     <PropertyDataList property={this.props.property}/>
                     <form noValidate autoComplete="off">

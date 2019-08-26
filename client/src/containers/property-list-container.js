@@ -1,10 +1,8 @@
 import { connect } from 'react-redux'
 import PropertyList from '../components/PropertyList';
+import {openBookingDialog} from '../actions/booking-actions';
 
 const mapStateToProps = state => {
-
-    console.log(state);
-
     return {
         properties: state.findProperties.properties,
         isPending: state.findProperties.pending,
@@ -12,7 +10,9 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+        onClick : property => dispatch(openBookingDialog(property))
+});
 
 export default connect(
     mapStateToProps,

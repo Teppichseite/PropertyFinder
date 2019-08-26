@@ -11,11 +11,11 @@ export default class PropertyItem extends React.Component {
 
     render() {
         return (
-            <ListItem className="property-item" button onClick={this.props.onClick}>
+            <ListItem className="property-item" button onClick={() => {this.props.onClick(this.props.property)}}>
                 <ListItemIcon>
                     <BusinessIcon />
                 </ListItemIcon>
-                <ListItemText primary={this.props.name} />
+                <ListItemText primary={this.props.property.name} />
             </ListItem>)
     }
 

@@ -4,12 +4,14 @@ import {findPropsPending, findPropsSuccess, findPropsError} from '../actions/fin
 
 export default class ApiActionHelper{
 
-    static findProperties(dispatch){
+    static findProperties(dispatch, searchQuery){
         this.getGeoLocation(dispatch, (pos) => {
 
             let findPropertiesDto = new FindPropertiesDto(
                 pos.coords.longitude, 
-                pos.coords.latitude);
+                pos.coords.latitude,
+                searchQuery
+                );
 
             console.log(pos.coords);
 

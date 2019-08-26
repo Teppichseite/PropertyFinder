@@ -7,23 +7,20 @@ import {
 const defaultState = {
     properties : [],
     pending : false,
-    error : false
+    error : false,
+    input : ""
 }
 
 
 export default function findProperties(state = defaultState, action){
-
-    let result = Object.assign({}, state, {
-        properties : action.properties,
-        pending : action.pending,
-        error : action.error
-    });
-
-    console.log(action);
-
+    
     switch(action.type){
         case FIND_PROPS_ERROR, FIND_PROPS_PENDING, FIND_PROPS_SUCCESS:
-            return result;
+            return Object.assign({}, state, {
+                properties : action.properties,
+                pending : action.pending,
+                error : action.error
+            });
     }
 
     return state;

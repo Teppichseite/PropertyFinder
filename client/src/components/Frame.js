@@ -27,15 +27,6 @@ export default class Frame extends React.Component {
                 <Container className="inner-frame">
                     {this.props.children}
                 </Container>
-                <Fab 
-                    className = "reload-fab"
-                    variant="extended" 
-                    color="primary" 
-                    onClick={this.props.onClick}
-                    aria-label="add">
-                    <ReplayIcon />
-                    Reload
-                </Fab>
             </div>
         );
     }

@@ -35,12 +35,6 @@ body, html{
     width: 100%;
 }
 
-.reload-fab{
-    position: fixed !important;
-    right: 30px;
-    bottom: 30px;
-}
-
 .search-prop-input{
     padding: 20px;
     border-radius: 7px;

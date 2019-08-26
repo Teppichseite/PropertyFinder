@@ -27,7 +27,7 @@ export default class BookingDialog extends React.Component {
         this.state = this.getDefaultState();
     }
 
-    getDefaultState(){
+    getDefaultState() {
         let fromDate = new Date();
         let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
 
@@ -73,7 +73,7 @@ export default class BookingDialog extends React.Component {
         this.props.onCommitBooking(bookingDto);
     }
 
-    onDialogClose(){
+    onDialogClose() {
         this.setState(this.getDefaultState());
         this.props.onClose();
     }
@@ -146,13 +146,15 @@ export default class BookingDialog extends React.Component {
         console.log(this.props);
 
         if (this.props.isPending) {
-            return (<CircularProgress className="center" />);
+            return (<CircularProgress/>);
         } else if (this.props.hasError) {
             return (
-                <Typography>
-                <h4 className="center">An error occurred :(</h4>
+                <Typography variant='subtitle1'>
+                    <label>An error occurred.
+                    Watch out that the e-mail is valid and that the from date is before the to date
+                    </label>
                 </Typography>
-                );
+            );
         }
 
         return <Button

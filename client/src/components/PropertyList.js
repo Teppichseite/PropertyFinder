@@ -15,45 +15,46 @@ export default class PropertyList extends React.Component {
 
         return (
             <div>
-            <ListItem className="property-item">
-                <ListItemIcon>
-                    <SearchIcon />
-                </ListItemIcon>
-                <input 
-                    className="search-prop-input" 
-                    placeholder="Enter a search term..."
-                    onChange={this.props.onChange}
+                <ListItem className="property-item">
+                    <ListItemIcon>
+                        <SearchIcon />
+                    </ListItemIcon>
+                    <input
+                        className="search-prop-input"
+                        placeholder="Enter a search term..."
+                        onChange={this.props.onChange}
                     />
-            </ListItem>
-            {
-                this.displayList()
-            }
+                </ListItem>
+                {
+                    this.displayList()
+                }
             </div>
-            
+
         );
     }
 
-    displayList(){
+    displayList() {
 
         console.log(this.props);
 
-        if(this.props.isPending){
-            return (<CircularProgress className="center"/>);
-        }else if(this.props.hasError){
+        if (this.props.isPending) {
+            return (<CircularProgress/>);
+        } else if (this.props.hasError) {
             return (
-                <Typography>
-                <h4 className="center">An error occurred :(</h4>
+                <Typography variant='subtitle1'>
+                    <label>An error occurred.
+                    </label>
                 </Typography>
             );
-        }else{
+        } else {
 
-            if(!this.props.properties){
+            if (!this.props.properties) {
                 return;
             }
 
             return (<List>
                 {this.props.properties.map((prop) => (
-                <PropertyItem property={prop} onClick={this.props.onClick} />
+                    <PropertyItem property={prop} onClick={this.props.onClick} />
                 ))}
             </List>)
         }

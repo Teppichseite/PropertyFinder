@@ -1,11 +1,13 @@
 import ApiService from '../services/api-service';
 import FindPropertiesDto from '../dtos/find-properties-dto';
 import {findPropsPending, findPropsSuccess, findPropsError} from '../actions/find-properties-actions';
+import {openBookingDialog, commitBookingPending, commitBookingSuccess, commitBookingError} from '../actions/booking-actions';
 
 export default class ApiActionHelper{
 
     static findProperties(dispatch, searchQuery){
-        this.getGeoLocation(dispatch, (pos) => {
+
+        ApiActionHelper.getGeoLocation(dispatch, (pos) => {
 
             let findPropertiesDto = new FindPropertiesDto(
                 pos.coords.longitude, 
@@ -13,9 +15,7 @@ export default class ApiActionHelper{
                 searchQuery
                 );
 
-            console.log(pos.coords);
-
-            this.callFindPropertiesApi(dispatch, findPropertiesDto)
+            ApiActionHelper.callFindPropertiesService(dispatch, findPropertiesDto)
         });
     }
 
@@ -27,9 +27,9 @@ export default class ApiActionHelper{
         }
     }
 
-    static callFindPropertiesApi(dispatch, findPropertiesDto){
+    static callFindPropertiesService(dispatch, findPropertiesDto){
 
-        ApiService.findPropertiesApiCall(findPropertiesDto).then((propertyDto) => {
+        ApiService.findProperties(findPropertiesDto).then((propertyDto) => {
             dispatch(findPropsSuccess(propertyDto));
 
         }).catch((e) => {
@@ -39,8 +39,31 @@ export default class ApiActionHelper{
             dispatch(findPropsError());
 
         });
+
         dispatch(findPropsPending());
 
     }
+
+    static createNewBooking(dispatch, bookingDto){
+        ApiActionHelper.callCreateNewBookingService(dispatch, bookingDto);
+    }
+
+    static callCreateNewBookingService(dispatch, bookingDto){
+
+        ApiService.createNewBooking(bookingDto).then((propertyDto) => {
+            
+            dispatch(commitBookingSuccess());
+            dispatch(openBookingDialog(null));
+
+        }).catch((e) => {
+
+            console.log(e);
+
+            dispatch(commitBookingError());
+
+        });
+        dispatch(commitBookingPending());
+
+    } 
 
 }

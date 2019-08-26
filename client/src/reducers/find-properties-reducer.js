@@ -15,7 +15,9 @@ const defaultState = {
 export default function findProperties(state = defaultState, action){
     
     switch(action.type){
-        case FIND_PROPS_ERROR, FIND_PROPS_PENDING, FIND_PROPS_SUCCESS:
+        case FIND_PROPS_ERROR: 
+        case FIND_PROPS_PENDING: 
+        case FIND_PROPS_SUCCESS:
             return Object.assign({}, state, {
                 properties : action.properties,
                 pending : action.pending,

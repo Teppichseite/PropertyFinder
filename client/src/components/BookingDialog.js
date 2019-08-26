@@ -11,30 +11,31 @@ import TextField from '@material-ui/core/TextField';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
-  } from '@material-ui/pickers';
+} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import '../public/style.css';
 import PropertyDataList from './PropertyDataList';
 import BookingDto from '../dtos/booking-dto';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class BookingDialog extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         let fromDate = new Date();
         let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
 
         this.state = {
-            name : "",
+            name: "",
             email: "",
-            fromDate : fromDate,
-            toDate : toDate
+            fromDate: fromDate,
+            toDate: toDate
         };
     }
 
-    onTextChange(stateKey){
+    onTextChange(stateKey) {
         return ((event) => {
             let stateObj = {};
             stateObj[stateKey] = event.target.value;
@@ -42,7 +43,7 @@ export default class BookingDialog extends React.Component {
         }).bind(this);
     }
 
-    onDateChange(stateKey){
+    onDateChange(stateKey) {
         return ((date) => {
             let stateObj = {};
             stateObj[stateKey] = date;
@@ -50,10 +51,10 @@ export default class BookingDialog extends React.Component {
         }).bind(this);
     }
 
-    onBookingButtonClick(){
+    onBookingButtonClick() {
         let bookingDto = new BookingDto(
-            "", "", 
-            this.props.property.name, 
+            "", "",
+            this.props.property.name,
             this.props.property.longtidude,
             this.props.property.latidude,
             this.props.property.city,
@@ -66,23 +67,23 @@ export default class BookingDialog extends React.Component {
         this.props.onCommitBooking(bookingDto);
     }
 
-    render(){
+    render() {
 
-        if(!this.props.property){
+        if (!this.props.property) {
             return null;
         }
 
         return (
-            <Dialog 
-                onClose={this.props.onClose} 
-                aria-labelledby="simple-dialog-title" 
+            <Dialog
+                onClose={this.props.onClose}
+                aria-labelledby="simple-dialog-title"
                 open={true}>
                 <Container className="booking-dialog-holder">
-                    <PropertyDataList property={this.props.property}/>
+                    <PropertyDataList property={this.props.property} />
                     <form noValidate autoComplete="off">
                         <TextField
                             className="text-field"
-                            label= "Name"
+                            label="Name"
                             margin="normal"
                             value={this.state.name}
                             onChange={this.onTextChange("name")
@@ -90,14 +91,14 @@ export default class BookingDialog extends React.Component {
                         />
                         <TextField
                             className="text-field"
-                            label= "E-Mail"
+                            label="E-Mail"
                             margin="normal"
                             value={this.state.email}
                             onChange={this.onTextChange("email")
                                 .bind(this)}
                         />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker 
+                            <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
                                 className="text-field"
@@ -109,7 +110,7 @@ export default class BookingDialog extends React.Component {
                                 onChange={this.onDateChange("fromDate")
                                     .bind(this)}
                             />
-                            <KeyboardDatePicker 
+                            <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
                                 className="text-field"
@@ -121,19 +122,32 @@ export default class BookingDialog extends React.Component {
                                 onChange={this.onDateChange("toDate")
                                     .bind(this)}
                             />
-                            <Button 
-                                variant="contained" 
-                                color="primary" 
-                                className="text-field book-btn"
-                                onClick={this.onBookingButtonClick
-                                    .bind(this)}>
-                                Commit booking
-                            </Button>
+                            {this.genCommitBookingButton()}
                         </MuiPickersUtilsProvider>
                     </form>
                 </Container>
             </Dialog>
         );
+    }
+
+    genCommitBookingButton() {
+
+        console.log(this.props);
+
+        if (this.props.isPending) {
+            return (<CircularProgress className="center" />);
+        } else if (this.props.hasError) {
+            return (<h3 className="center">An error occurred :(</h3>);
+        }
+
+        return <Button
+            variant="contained"
+            color="primary"
+            className="text-field book-btn"
+            onClick={this.onBookingButtonClick
+                .bind(this)}>
+            Commit booking
+            </Button>
     }
 
 }

@@ -1,19 +1,24 @@
 import { connect } from 'react-redux';
 import BookingDialog from '../components/BookingDialog';
-import {openBookingDialog} from '../actions/booking-actions';
+import {openBookingDialog, commitBookingSuccess} from '../actions/booking-actions';
+import ApiActionHelper from '../helpers/api-action-helper';
 
 const mapStateToProps = state => {
-
-    console.log(state);
-
     return {
         property : state.setBookingDialog.openedProperty,
+        isPending : state.setBookingDialog.pending,
+        hasError : state.setBookingDialog.error
     }
-
 };
 
 const mapDispatchToProps = dispatch => ({
-    onClose : () => dispatch(openBookingDialog(null))
+    onClose : () => {
+        dispatch(openBookingDialog(null))
+        dispatch(commitBookingSuccess())
+    },
+    onCommitBooking : (bookingDto) => {
+        ApiActionHelper.createNewBooking(dispatch, bookingDto)
+    }
 });
 
 export default connect(

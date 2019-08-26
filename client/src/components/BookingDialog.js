@@ -24,15 +24,21 @@ export default class BookingDialog extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = this.getDefaultState();
+    }
+
+    getDefaultState(){
         let fromDate = new Date();
         let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
 
-        this.state = {
+        let defState = {
             name: "",
             email: "",
             fromDate: fromDate,
             toDate: toDate
         };
+
+        return defState;
     }
 
     onTextChange(stateKey) {
@@ -67,6 +73,11 @@ export default class BookingDialog extends React.Component {
         this.props.onCommitBooking(bookingDto);
     }
 
+    onDialogClose(){
+        this.setState(this.getDefaultState());
+        this.props.onClose();
+    }
+
     render() {
 
         if (!this.props.property) {
@@ -75,7 +86,7 @@ export default class BookingDialog extends React.Component {
 
         return (
             <Dialog
-                onClose={this.props.onClose}
+                onClose={this.onDialogClose.bind(this)}
                 aria-labelledby="simple-dialog-title"
                 open={true}>
                 <Container className="booking-dialog-holder">

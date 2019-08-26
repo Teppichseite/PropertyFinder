@@ -10,15 +10,61 @@ import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import '../public/style.css';
 import PropertyDataList from './PropertyDataList';
+import BookingDto from '../dtos/booking-dto';
 
 export default class BookingDialog extends React.Component {
+
+    constructor(props){
+        super(props);
+
+        let fromDate = new Date();
+        let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
+
+        this.state = {
+            name : "",
+            email: "",
+            fromDate : fromDate,
+            toDate : toDate
+        };
+    }
+
+    onTextChange(stateKey){
+        return ((event) => {
+            let stateObj = {};
+            stateObj[stateKey] = event.target.value;
+            this.setState(stateObj)
+        }).bind(this);
+    }
+
+    onDateChange(stateKey){
+        return ((date) => {
+            let stateObj = {};
+            stateObj[stateKey] = date;
+            this.setState(stateObj)
+        }).bind(this);
+    }
+
+    onBookingButtonClick(){
+        let bookingDto = new BookingDto(
+            "", "", 
+            this.props.property.name, 
+            this.props.property.longtidude,
+            this.props.property.latidude,
+            this.props.property.city,
+            this.props.property.url,
+            "",
+            this.state.name,
+            this.state.email
+        );
+
+        this.props.onCommitBooking(bookingDto);
+    }
 
     render(){
 
@@ -37,16 +83,20 @@ export default class BookingDialog extends React.Component {
                         <TextField
                             className="text-field"
                             label= "Name"
-                            value="sdfsdf"
                             margin="normal"
+                            value={this.state.name}
+                            onChange={this.onTextChange("name")
+                                .bind(this)}
                         />
                         <TextField
                             className="text-field"
                             label= "E-Mail"
-                            value="sdfsdf"
                             margin="normal"
+                            value={this.state.email}
+                            onChange={this.onTextChange("email")
+                                .bind(this)}
                         />
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker 
                                 disableToolbar
                                 variant="inline"
@@ -55,6 +105,9 @@ export default class BookingDialog extends React.Component {
                                 margin="normal"
                                 id="date-picker-inline"
                                 label="From date"
+                                value={this.state.fromDate}
+                                onChange={this.onDateChange("fromDate")
+                                    .bind(this)}
                             />
                             <KeyboardDatePicker 
                                 disableToolbar
@@ -64,12 +117,17 @@ export default class BookingDialog extends React.Component {
                                 margin="normal"
                                 id="date-picker-inline"
                                 label="To date"
+                                value={this.state.toDate}
+                                onChange={this.onDateChange("toDate")
+                                    .bind(this)}
                             />
                             <Button 
                                 variant="contained" 
                                 color="primary" 
-                                className="text-field">
-                                Book
+                                className="text-field book-btn"
+                                onClick={this.onBookingButtonClick
+                                    .bind(this)}>
+                                Commit booking
                             </Button>
                         </MuiPickersUtilsProvider>
                     </form>

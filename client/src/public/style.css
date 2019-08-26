@@ -53,3 +53,7 @@ body, html{
 textarea:focus, input:focus{
     outline: none;
 }
+
+.book-btn{
+    margin-top: 15px !important;
+}

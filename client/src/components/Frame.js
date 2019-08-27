@@ -2,17 +2,15 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
-import MenuIcon from '@material-ui/icons/Menu';
-import ReplayIcon from '@material-ui/icons/Replay';
-import Button from '@material-ui/core/Button';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { Container } from '@material-ui/core';
 import '../public/style.css';
 
+/**
+ * Outer frame with appbar of the application
+ */
 export default class Frame extends React.Component {
-
+    
     render(){
         return (
             <div className="outer-frame">

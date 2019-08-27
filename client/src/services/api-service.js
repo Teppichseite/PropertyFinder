@@ -12,7 +12,7 @@ export default class ApiService{
      * @returns {Promise<>}
      */
     static async createNewBooking(bookingDto){
-        let data = await request({
+        await request({
             method: 'POST',
             uri : CREATE_BOOKING_URL,
             body : bookingDto,

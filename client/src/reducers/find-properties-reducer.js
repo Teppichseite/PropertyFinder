@@ -15,6 +15,9 @@ const defaultState = {
 export default function findProperties(state = defaultState, action){
     
     switch(action.type){
+
+        //all actions share the same properties
+        //all three in one case for merging
         case FIND_PROPS_ERROR: 
         case FIND_PROPS_PENDING: 
         case FIND_PROPS_SUCCESS:

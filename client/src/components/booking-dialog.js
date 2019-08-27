@@ -1,11 +1,6 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Container } from '@material-ui/core';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import {
@@ -15,7 +10,7 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import '../public/style.css';
-import PropertyDataList from './PropertyDataList';
+import PropertyDataList from './property-data-list';
 import BookingDto from '../dtos/booking-dto';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -24,11 +19,18 @@ export default class BookingDialog extends React.Component {
     constructor(props) {
         super(props);
 
+        //initial state
         this.state = this.getDefaultState();
     }
 
+    /**
+     * returns a default state for textfields and datepickers
+     * @returns {any}
+     */
     getDefaultState() {
         let fromDate = new Date();
+
+        //fromDate + one day
         let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
 
         let defState = {
@@ -41,6 +43,13 @@ export default class BookingDialog extends React.Component {
         return defState;
     }
 
+    /**
+     * Returns a function that has as 
+     * parameter a event and updates the 
+     * local state by statekey and the event
+     * @param {String} stateKey 
+     * @returns {function}
+     */
     onTextChange(stateKey) {
         return ((event) => {
             let stateObj = {};
@@ -49,6 +58,13 @@ export default class BookingDialog extends React.Component {
         }).bind(this);
     }
 
+    /**
+     * Returns a function that has as 
+     * parameter a date and updates the 
+     * local state by statekey and the date
+     * @param {String} stateKey 
+     * @returns {function}
+     */
     onDateChange(stateKey) {
         return ((date) => {
             let stateObj = {};
@@ -57,6 +73,10 @@ export default class BookingDialog extends React.Component {
         }).bind(this);
     }
 
+    /**
+     * Creates a bookingDto and calls 
+     * props.onCommitBooking(bookingDt)
+     */
     onBookingButtonClick() {
         let bookingDto = new BookingDto(
             "", "",
@@ -73,6 +93,10 @@ export default class BookingDialog extends React.Component {
         this.props.onCommitBooking(bookingDto);
     }
 
+    /**
+     * Resets dialog to default state and calls
+     * props.onClose()
+     */
     onDialogClose() {
         this.setState(this.getDefaultState());
         this.props.onClose();
@@ -80,6 +104,7 @@ export default class BookingDialog extends React.Component {
 
     render() {
 
+        //display nothing if !prop.property
         if (!this.props.property) {
             return null;
         }
@@ -92,47 +117,11 @@ export default class BookingDialog extends React.Component {
                 <Container className="booking-dialog-holder">
                     <PropertyDataList property={this.props.property} />
                     <form noValidate autoComplete="off">
-                        <TextField
-                            className="text-field"
-                            label="Name"
-                            margin="normal"
-                            value={this.state.name}
-                            onChange={this.onTextChange("name")
-                                .bind(this)}
-                        />
-                        <TextField
-                            className="text-field"
-                            label="E-Mail"
-                            margin="normal"
-                            value={this.state.email}
-                            onChange={this.onTextChange("email")
-                                .bind(this)}
-                        />
+                        {this.genTextField("name", "Name")}
+                        {this.genTextField("email", "E-Mail")}
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant="inline"
-                                className="text-field"
-                                format="MM/dd/yyyy"
-                                margin="normal"
-                                id="date-picker-inline"
-                                label="From date"
-                                value={this.state.fromDate}
-                                onChange={this.onDateChange("fromDate")
-                                    .bind(this)}
-                            />
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant="inline"
-                                className="text-field"
-                                format="MM/dd/yyyy"
-                                margin="normal"
-                                id="date-picker-inline"
-                                label="To date"
-                                value={this.state.toDate}
-                                onChange={this.onDateChange("toDate")
-                                    .bind(this)}
-                            />
+                            {this.genDatePicker('fromDate', 'From Date')}
+                            {this.genDatePicker('toDate', 'To Date')}
                             {this.genCommitBookingButton()}
                         </MuiPickersUtilsProvider>
                     </form>
@@ -141,9 +130,53 @@ export default class BookingDialog extends React.Component {
         );
     }
 
-    genCommitBookingButton() {
+    /**
+     * Generates text filed
+     * @param {String} stateKey - key in current state
+     * @param {String} labelText 
+     * @returns {React.Component}
+     */
+    genTextField(stateKey, labelText) {
+        return (
+            <TextField
+                className="text-field"
+                label={labelText}
+                margin="normal"
+                value={this.state[stateKey]}
+                onChange={this.onTextChange(stateKey)
+                    .bind(this)}
+            />
+        );
+    }
 
-        console.log(this.props);
+    /**
+     * Generates date picker
+     * @param {String} stateKey - key in current state
+     * @param {String} labelText 
+     * @returns {React.Component}
+     */
+    genDatePicker(stateKey, labelText) {
+        return (
+            <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                className="text-field"
+                format="dd/MM/yyyy"
+                margin="normal"
+                label={labelText}
+                value={this.state[stateKey]}
+                onChange={this.onDateChange(stateKey)
+                    .bind(this)}
+            />
+        );
+    }
+
+    /**
+     * Generates booking button with loading spinner 
+     * and error message
+     * @returns {React.Component}
+     */
+    genCommitBookingButton() {
 
         let comp;
 

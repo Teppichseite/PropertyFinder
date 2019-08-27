@@ -1,14 +1,16 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
-import PropertyItem from './PropertyItem';
+import PropertyItem from './property-item';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import '../public/style.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+/**
+ * Displays a list of PropertyItems and a search bar
+ */
 export default class PropertyList extends React.Component {
 
     render() {
@@ -33,30 +35,35 @@ export default class PropertyList extends React.Component {
         );
     }
 
+    /**
+     * shows the list
+     * @returns {React.Component}
+     */
     displayList() {
-
-        console.log(this.props);
-
         if (this.props.isPending) {
+            
+            //show loading spinner
             return (<CircularProgress/>);
+
         } else if (this.props.hasError) {
+
+            //show error message
             return (
                 <Typography variant='subtitle1'>
                     <label>An error occurred.
                     </label>
                 </Typography>
             );
+
         } else {
 
-            if (!this.props.properties) {
-                return;
-            }
-
+            //show list
             return (<List>
                 {this.props.properties.map((prop) => (
                     <PropertyItem property={prop} onClick={this.props.onClick} />
                 ))}
-            </List>)
+            </List>);
+
         }
     }
 

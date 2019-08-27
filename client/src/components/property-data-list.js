@@ -9,9 +9,12 @@ import LocationIcon from '@material-ui/icons/MyLocation';
 import LanguageIcon from '@material-ui/icons/Language';
 import Link from '@material-ui/core/Link';
 
+/**
+ * Displays property data of a booking dto
+ */
 export default class PropertyDataList extends React.Component {
 
-    render(){
+    render() {
         return (
             <List>
                 {this.genListItem(this.props.property, "name")}
@@ -21,25 +24,37 @@ export default class PropertyDataList extends React.Component {
         );
     }
 
-    genListItem(bookingDto, key){
+    /**
+     * Returns a ListItem with a value from bookingDto
+     * and the right Icon to it
+     * @param {BookingDto} bookingDto 
+     * @param {String} key - key for value in bookingDto
+     * @returns {React.Component}
+     */
+    genListItem(bookingDto, key) {
 
         let text = bookingDto[key];
 
-        if(!text){
+        //display nothing when there is no next
+        if (!text) {
             return;
         }
 
+
+        //get right icon
         let icon;
+
+        //set a link property when key is url
         let isLink = false;
-        switch(key){
+        switch (key) {
             case "name":
-                icon = (<BusinessIcon/>);
+                icon = (<BusinessIcon />);
                 break;
             case "city":
-                icon = (<LocationIcon/>);
+                icon = (<LocationIcon />);
                 break;
             case "url":
-                icon = (<LanguageIcon/>)
+                icon = (<LanguageIcon />)
                 isLink = true;
                 break;
         }
@@ -49,11 +64,12 @@ export default class PropertyDataList extends React.Component {
                 <ListItemIcon>
                     {icon}
                 </ListItemIcon>
-                {!isLink ? 
-                <ListItemText primary={text}></ListItemText>
-                :
-                <Link href={text}>
-                    More Data
+                {
+                    !isLink ?
+                        <ListItemText primary={text}></ListItemText>
+                        :
+                        <Link href={text}>
+                            More Data
                 </Link>}
             </ListItem>
         );

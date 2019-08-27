@@ -3,6 +3,13 @@ export const COMMIT_BOOKING_PENDING = 'COMMIT_BOOKING_PENDING';
 export const COMMIT_BOOKING_SUCCESS = 'COMMIT_BOOKING_SUCCESS'; 
 export const COMMIT_BOOKING_ERROR = 'COMMIT_BOOKING_ERROR'; 
 
+/**
+ * Open booking dialog action
+ * use null for property for closing 
+ * the dialog
+ * @param {PropertyDto} property  
+ * @returns {Action} - redux action
+ */
 export function openBookingDialog(property){
     return {
         type : OPEN_BOOKING_DIALOG,
@@ -10,6 +17,10 @@ export function openBookingDialog(property){
     }
 }
 
+/**
+ * commit booking pending action
+ * @returns {Action} - redux action
+ */
 export function commitBookingPending(){
     return {
         type : COMMIT_BOOKING_PENDING,
@@ -18,6 +29,10 @@ export function commitBookingPending(){
     };
 }
 
+/**
+ * commit booking success action
+ * @returns {Action} - redux action
+ */
 export function commitBookingSuccess(){
     return {
         type : COMMIT_BOOKING_SUCCESS,
@@ -26,6 +41,10 @@ export function commitBookingSuccess(){
     };
 }
 
+/**
+ * commit booking error action
+ * @returns {Action} - redux action
+ */
 export function commitBookingError(){
     return {
         type : COMMIT_BOOKING_ERROR,

@@ -8,10 +8,16 @@ const schema = new mongoose.Schema({
         required : true
     },
 
-    date : {
+    fromDate : {
         type : Date,
-        default : Date.now
+        required : true
+    },
+
+    toDate : {
+        type : Date,
+        required : true
     }
+    
 
 });
 

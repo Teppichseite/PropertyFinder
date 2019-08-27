@@ -84,7 +84,10 @@ export default class BookingDialog extends React.Component {
             this.props.property.longtidude,
             this.props.property.latidude,
             this.props.property.city,
+            this.props.property.street,
             this.props.property.url,
+            this.state.fromDate.toISOString(),
+            this.state.toDate.toISOString(),
             "",
             this.state.name,
             this.state.email

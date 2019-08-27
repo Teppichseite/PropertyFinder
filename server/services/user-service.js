@@ -21,7 +21,9 @@ module.exports = class UserService{
 
         //setup booking model
         let bookingModel = new Booking({
-            propertyId : propId
+            propertyId : propId,
+            fromDate : new Date(bookingDto.fromDate),
+            toDate : new Date(bookingDto.toDate)
         });
 
         //save user if needed and add the booking entry
@@ -46,7 +48,8 @@ module.exports = class UserService{
             },
             {
                 $setOnInsert : {
-                    city : bookingDto.city
+                    city : bookingDto.city,
+                    street : bookingDto.street
                 }
             }
         );

@@ -60,9 +60,11 @@ export default class PropertyDataList extends React.Component {
                 icon = (<NearMeIcon />);
                 break;
             case "url":
-                icon = (<LanguageIcon />)
+                icon = (<LanguageIcon />);
                 isLink = true;
                 break;
+            default:
+                icon = (<BusinessIcon />);
         }
 
         return (

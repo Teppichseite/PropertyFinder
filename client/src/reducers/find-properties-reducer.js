@@ -26,8 +26,9 @@ export default function findProperties(state = defaultState, action){
                 pending : action.pending,
                 error : action.error
             });
-    }
 
-    return state;
+        default:
+            return state;
+    }
 
 }

@@ -60,11 +60,22 @@ export default class PropertyList extends React.Component {
             //show list
             return (<List>
                 {this.props.properties.map((prop) => (
-                    <PropertyItem property={prop} onClick={this.props.onClick} />
+                    <PropertyItem key={this.genKey(prop)} property={prop} onClick={this.props.onClick} />
                 ))}
             </List>);
 
         }
+    }
+
+    /**
+     * Generates a key for a property
+     * @param {PropertyDto} prop
+     * @returns {String} 
+     */
+    genKey(prop){
+        return prop.name 
+        + prop.latidude 
+        + prop.latidude;
     }
 
 }

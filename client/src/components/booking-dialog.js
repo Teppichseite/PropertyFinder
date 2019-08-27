@@ -56,7 +56,7 @@ export default class BookingDialog extends React.Component {
             let stateObj = {};
             stateObj[stateKey] = event.target.value;
             this.setState(stateObj)
-        }).bind(this);
+        });
     }
 
     /**
@@ -71,7 +71,7 @@ export default class BookingDialog extends React.Component {
             let stateObj = {};
             stateObj[stateKey] = date;
             this.setState(stateObj)
-        }).bind(this);
+        });
     }
 
     /**
@@ -80,7 +80,10 @@ export default class BookingDialog extends React.Component {
      */
     onBookingButtonClick() {
 
-        this.state.bookingButtonClicked = true;
+        this.setState({
+            bookingButtonClicked : true
+        })
+        //this.state.bookingButtonClicked = true;
 
         let bookingDto = new BookingDto(
             "", "",
@@ -210,8 +213,8 @@ export default class BookingDialog extends React.Component {
                 </Typography>
             );
 
-            //close after 500 miliseconds
-            setTimeout(() => this.onDialogClose(), 500);
+            //close after some milliseconds
+            setTimeout(() => this.onDialogClose(), 800);
 
         }
 

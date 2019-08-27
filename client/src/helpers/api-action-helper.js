@@ -1,7 +1,7 @@
 import ApiService from '../services/api-service';
 import FindPropertiesDto from '../dtos/find-properties-dto';
 import {findPropsPending, findPropsSuccess, findPropsError} from '../actions/find-properties-actions';
-import {openBookingDialog, commitBookingPending, commitBookingSuccess, commitBookingError} from '../actions/booking-actions';
+import {commitBookingPending, commitBookingSuccess, commitBookingError} from '../actions/booking-actions';
 
 export default class ApiActionHelper{
 
@@ -80,11 +80,8 @@ export default class ApiActionHelper{
         ApiService.createNewBooking(bookingDto).then((propertyDto) => {
             
             dispatch(commitBookingSuccess());
-            //dispatch(openBookingDialog(null));
 
         }).catch((e) => {
-
-            console.log(e);
 
             dispatch(commitBookingError());
 

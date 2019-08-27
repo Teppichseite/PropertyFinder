@@ -30,8 +30,9 @@ export default function setBookingDialog(state = defaultState, action){
                 pending : action.pending,
                 error : action.error
             });
-    }
 
-    return state;
+        default:
+            return state;
+    }
 
 }

@@ -1,4 +1,6 @@
 const chai = require('chai');
+const eqlAnyOrder = require('deep-equal-in-any-order');
+chai.use(eqlAnyOrder);
 const expect = chai.expect;
 
 const PropertyService = require('../services/property-service');
@@ -157,7 +159,7 @@ describe('PropertyService', () => {
             ];
 
             let actualResult = await UserService.findBookingsByUserId(user6._id);
-            expect(actualResult).to.be.eql(expectedResult);
+            expect(actualResult).to.deep.equalInAnyOrder(expectedResult);
         });
 
         it("should return [] if there is no such user id", async () => {

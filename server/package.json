@@ -9,6 +9,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
+    "deep-equal-in-any-order": "^1.0.21",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
     "geo-distance": "^0.2.0",

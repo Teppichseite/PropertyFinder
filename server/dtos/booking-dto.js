@@ -10,8 +10,8 @@ module.exports = class BookingDto{
         this.city = city;
         this.street = street;
         this.url = url;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.from_date = fromDate;
+        this.to_date = toDate;
         if(email){
             this.user = {
                 id : userId,

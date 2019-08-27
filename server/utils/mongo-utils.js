@@ -49,7 +49,10 @@ module.exports = class MonogoUtils{
             rawBooking.bookings.propertyObject[0].longtidude,
             rawBooking.bookings.propertyObject[0].latidude,
             rawBooking.bookings.propertyObject[0].city,
+            rawBooking.bookings.propertyObject[0].street,
             rawBooking.bookings.propertyObject[0].url,
+            rawBooking.bookings.fromDate,
+            rawBooking.bookings.toDate,
             rawBooking._id, rawBooking.name, email
             );
     }

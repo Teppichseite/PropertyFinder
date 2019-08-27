@@ -71,6 +71,8 @@ module.exports = class PropertyService{
         let properties = rawPropList.map(
             (rawProp) => PropertyService.hereRawPropertyToPropertyDto(findPropertiesDto, rawProp));
 
+        properties = properties.filter((propDto) => propDto.name);
+
         //console.log(properties);
 
         return properties;

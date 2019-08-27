@@ -10,8 +10,8 @@ const store = createStore(rootReducer);
 
 //build app 
 render(
-  <Provider store={store}>
-    <App store={store}/>
-  </Provider>,
+    <Provider store={store}>
+      <App store={store}/>
+    </Provider>,
   document.getElementById('root')
 );

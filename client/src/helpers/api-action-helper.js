@@ -52,8 +52,6 @@ export default class ApiActionHelper{
 
         }).catch((e) => {
 
-            console.log(e);
-
             dispatch(findPropsError());
 
         });
@@ -82,7 +80,7 @@ export default class ApiActionHelper{
         ApiService.createNewBooking(bookingDto).then((propertyDto) => {
             
             dispatch(commitBookingSuccess());
-            dispatch(openBookingDialog(null));
+            //dispatch(openBookingDialog(null));
 
         }).catch((e) => {
 

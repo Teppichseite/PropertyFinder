@@ -34,6 +34,7 @@ export default class BookingDialog extends React.Component {
         let toDate = new Date(fromDate.getTime() + (1000 * 60 * 60 * 24));
 
         let defState = {
+            bookingButtonClicked : false,
             name: "",
             email: "",
             fromDate: fromDate,
@@ -78,6 +79,9 @@ export default class BookingDialog extends React.Component {
      * props.onCommitBooking(bookingDt)
      */
     onBookingButtonClick() {
+
+        this.state.bookingButtonClicked = true;
+
         let bookingDto = new BookingDto(
             "", "",
             this.props.property.name,
@@ -183,6 +187,8 @@ export default class BookingDialog extends React.Component {
 
         let comp;
 
+        let onClick = this.onBookingButtonClick.bind(this);
+
         if (this.props.isPending) {
             comp = (<CircularProgress />);
         } else if (this.props.hasError) {
@@ -193,6 +199,20 @@ export default class BookingDialog extends React.Component {
                     </label>
                 </Typography>
             );
+        }else if(this.state.bookingButtonClicked){
+
+            //show a success message 
+            onClick = null;
+
+            comp = (
+                <Typography variant='subtitle1'>
+                    <label>Booking was successful</label>
+                </Typography>
+            );
+
+            //close after 500 miliseconds
+            setTimeout(() => this.onDialogClose(), 500);
+
         }
 
         return (
@@ -202,8 +222,7 @@ export default class BookingDialog extends React.Component {
                     variant="contained"
                     color="primary"
                     className="text-field book-btn"
-                    onClick={this.onBookingButtonClick
-                        .bind(this)}>
+                    onClick={onClick}>
                     Commit booking
             </Button>
             </div>

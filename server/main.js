@@ -14,7 +14,10 @@ const api = require('./routes/properties.js');
 async function start(){
     
     //connect to mongodb
-    await mongoose.connect(localConfig.mongodbUrl, {useNewUrlParser: true});
+    await mongoose.connect(localConfig.mongodbUrl, {
+        useNewUrlParser: true,
+        useFindAndModify: false
+    });
 
     //setup bodyparser
     app.use(bodyParser.urlencoded({ extended: false }));

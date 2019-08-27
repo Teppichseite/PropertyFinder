@@ -8,8 +8,9 @@ const mongoose = require('mongoose');
 
 const localConfig = require('./local-config.json');
 
-const user = require('./routes/users.js');
-const api = require('./routes/properties.js');
+const users = require('./routes/users.js');
+const properties = require('./routes/properties.js');
+const views = require('./routes/views.js');
 
 async function start(){
     
@@ -29,7 +30,8 @@ async function start(){
     //Enable cors
     app.use(function(req, res, next) {
         let allowedOrigins = [
-            'http://localhost:3000'
+            'http://localhost:3000',
+            localConfig.serverUrl
         ];
         let origin = req.headers.origin;
         if(allowedOrigins.indexOf(origin) > -1){
@@ -43,8 +45,9 @@ async function start(){
     });
 
     //setup routes
-    router.use('/users', user);
-    router.use('/properties', api);
+    router.use('/users', users);
+    router.use('/properties', properties);
+    router.use('/', views);
 
     app.use('/', router);
 

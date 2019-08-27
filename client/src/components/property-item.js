@@ -16,7 +16,10 @@ export default class PropertyItem extends React.Component {
                 <ListItemIcon>
                     <BusinessIcon />
                 </ListItemIcon>
-                <ListItemText primary={this.props.property.name} />
+                <ListItemText 
+                    primary={this.props.property.name} 
+                    secondary={this.props.property.distance}
+                    />
             </ListItem>)
     }
 

@@ -1,4 +1,5 @@
 const rp = require('request-promise-native');
+const Distance = require('geo-distance');
 
 const User = require('../models/user');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -67,7 +68,8 @@ module.exports = class PropertyService{
         if(findPropertiesDto.search_query){
             rawPropList = data.results;
         }
-        let properties = rawPropList.map(PropertyService.hereRawPropertyToPropertyDto);
+        let properties = rawPropList.map(
+            (rawProp) => PropertyService.hereRawPropertyToPropertyDto(findPropertiesDto, rawProp));
 
         //console.log(properties);
 
@@ -77,18 +79,26 @@ module.exports = class PropertyService{
 
     /**
      * Converts a raw here api property object to a PropertyDto
+     * @param {FindPropertiesDto} findPropertiesDto
      * @param {any} prop - raw here api property object
      * @returns {PropertyDto}
      */
-    static hereRawPropertyToPropertyDto(prop){
+    static hereRawPropertyToPropertyDto(findPropertiesDto, prop){
         //set invalid values if the prop has no specific location
         let latidude = 1000;
         let longtidude = 1000;
         
+        let distance = null;
+
         //set location values
         if(prop.position){
             latidude = prop.position[0];
             longtidude = prop.position[1];
+
+            distance = PropertyService.getLocationDistance(
+                findPropertiesDto,
+                prop.position
+            )
         }
 
         //set city and street values
@@ -115,7 +125,22 @@ module.exports = class PropertyService{
             prop.href, 
             city,
             street, 
-            0);
+            distance);
+    }
+
+    static getLocationDistance(findPropertiesDto, rawPosition){
+        let distanceResult = Distance.between(
+            {
+                lat: findPropertiesDto.latidude,
+                lon: findPropertiesDto.longtidude
+            },
+            {
+                lat: rawPosition[0],
+                lon: rawPosition[1]
+            }
+            ).human_readable();
+
+        return distanceResult.toString() + " away";
     }
 
     /**

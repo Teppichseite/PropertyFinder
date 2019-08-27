@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BusinessIcon from '@material-ui/icons/Business';
 import LocationIcon from '@material-ui/icons/MyLocation';
+import NearMeIcon from '@material-ui/icons/NearMe';
 import LanguageIcon from '@material-ui/icons/Language';
 import Link from '@material-ui/core/Link';
 
@@ -20,6 +21,7 @@ export default class PropertyDataList extends React.Component {
                 {this.genListItem(this.props.property, "name")}
                 {this.genListItem(this.props.property, "city")}
                 {this.genListItem(this.props.property, "street")}
+                {this.genListItem(this.props.property, "distance")}
                 {this.genListItem(this.props.property, "url")}
             </List>
         );
@@ -53,6 +55,9 @@ export default class PropertyDataList extends React.Component {
                 break;
             case "city": case "street":
                 icon = (<LocationIcon />);
+                break;
+            case "distance":
+                icon = (<NearMeIcon />);
                 break;
             case "url":
                 icon = (<LanguageIcon />)

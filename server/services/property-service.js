@@ -69,6 +69,8 @@ module.exports = class PropertyService{
         }
         let properties = rawPropList.map(PropertyService.hereRawPropertyToPropertyDto);
 
+        //console.log(properties);
+
         return properties;
 
     }
@@ -82,17 +84,38 @@ module.exports = class PropertyService{
         //set invalid values if the prop has no specific location
         let latidude = 1000;
         let longtidude = 1000;
-        if(prop.location){
-            latidude = prop.location[0];
-            longtidude = prop.location[1];
+        
+        //set location values
+        if(prop.position){
+            latidude = prop.position[0];
+            longtidude = prop.position[1];
+        }
+
+        //set city and street values
+        let city;
+        let street;
+        if(prop.vicinity){
+            let addressData = prop.vicinity.split("<br/>");
+            if(addressData.length === 2){
+
+                city = addressData[1];
+                street = addressData[0];
+
+            }else if(addressData.length === 1){
+                
+                city = addressData[0];
+
+            }
         }
 
         return new PropertyDto(
-            PropertyService.checkUnknown(prop.title), 
+            prop.title, 
             longtidude, 
             latidude,
-            PropertyService.checkUnknown(prop.href), 
-            PropertyService.checkUnknown(prop.vicinity));
+            prop.href, 
+            city,
+            street, 
+            0);
     }
 
     /**

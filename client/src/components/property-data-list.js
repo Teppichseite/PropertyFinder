@@ -19,6 +19,7 @@ export default class PropertyDataList extends React.Component {
             <List>
                 {this.genListItem(this.props.property, "name")}
                 {this.genListItem(this.props.property, "city")}
+                {this.genListItem(this.props.property, "street")}
                 {this.genListItem(this.props.property, "url")}
             </List>
         );
@@ -50,7 +51,7 @@ export default class PropertyDataList extends React.Component {
             case "name":
                 icon = (<BusinessIcon />);
                 break;
-            case "city":
+            case "city": case "street":
                 icon = (<LocationIcon />);
                 break;
             case "url":

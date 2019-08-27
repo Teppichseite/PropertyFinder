@@ -3,6 +3,7 @@ const BookingDto = require('../dtos/booking-dto');
 const User = require('../models/user');
 const Booking = require('../models/booking').model;
 const Property = require('../models/property');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const MongoUtils = require('../utils/mongo-utils');
 
@@ -22,8 +23,8 @@ module.exports = class UserService{
         //setup booking model
         let bookingModel = new Booking({
             propertyId : propId,
-            fromDate : new Date(bookingDto.fromDate),
-            toDate : new Date(bookingDto.toDate)
+            fromDate : new Date(bookingDto.from_date),
+            toDate : new Date(bookingDto.to_date)
         });
 
         //save user if needed and add the booking entry
@@ -103,7 +104,7 @@ module.exports = class UserService{
 
         //convert result to BookingDto[]
         return rawBookings
-            .map(MongoUtils.rawBookingToBookingDto);
+            .map((raw) => MongoUtils.rawBookingToBookingDto(raw, false));
     }
 
 }

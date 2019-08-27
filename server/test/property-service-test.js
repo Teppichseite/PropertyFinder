@@ -15,7 +15,8 @@ describe('PropertyService', () => {
 
     before(async function() {
         //connect before tests to mongodb
-        await mongoose.connect(localConfig.mongodbTestUrl, {useNewUrlParser: true});
+        await mongoose.connect(localConfig.mongodbTestUrl, 
+            {useNewUrlParser: true, useFindAndModify: false});
     });
 
     after(async function() {

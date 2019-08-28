@@ -21,7 +21,7 @@ The server is a NodeJS application written in JavaScript.
     {
       "mongodbUrl" : "mongodb://localhost:27017/ExamplePropertyProject",
       "mongodbTestUrl" : "mongodb://localhost:27017/ExamplePropertyProjectTest",
-      "hereAppId" : "EXAMPLE_HERE_APP_KEY",
+      "hereAppId" : "EXAMPLE_HERE_APP_ID",
       "hereAppCode" : "EXAMPLE_HERE_APP_CODE"
     }
 
@@ -41,7 +41,7 @@ The server is a NodeJS application written in JavaScript.
 ### Web Application usage
 Open `http://127.0.0.1:8080/` in Browser
 
-### Api usage
+### API usage
 * Endpoint `http://127.0.0.1:8080/`
 * `/users/USER_ID/bookings` will return bookings made by a specific user with a user id `USER_ID` 
 * `/propeties/PROPERTY_ID/bookings` will return bookings made for a property with a property id `PROPERTY_ID`

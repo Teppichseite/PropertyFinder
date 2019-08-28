@@ -1,6 +1,8 @@
 const rp = require('request-promise-native');
 const Distance = require('geo-distance');
 
+const localConfing = require('../local-config.json');
+
 const User = require('../models/user');
 const ObjectId = require('mongoose').Types.ObjectId;
 const MongoUtils = require('../utils/mongo-utils');
@@ -9,8 +11,8 @@ const PropertyDto = require('../dtos/property-dto');
 const HERE_BASE_URL = "https://places.cit.api.here.com/places/v1"
 const HERE_AUTO_SUGGEST_URL = HERE_BASE_URL + "/autosuggest";
 const HERE_EXPLORE_URL = HERE_BASE_URL + "/discover/explore";
-const HERE_APP_ID = "qNzSk1lVT2P84fVVMyeY";
-const HERE_APP_CODE = "WYBRUZj4WML3t-fAQAY3SQ";
+const HERE_APP_ID = localConfing.hereAppId;
+const HERE_APP_CODE = localConfing.hereAppCode;
 
 const UNKNOWN_VALUE = "unknown";
 

@@ -14,15 +14,15 @@ import PropTypes from 'prop-types';
 //signature
 const PROP_TYPES = {
     //properties to show
-    properties : PropTypes.arrayOf(PropertyDto.PropType()).isRequired,
+    properties: PropTypes.arrayOf(PropTypes.instanceOf(PropertyDto)).isRequired,
     //if find properties is pending
-    isPending : PropTypes.bool.isRequired,
+    isPending: PropTypes.bool.isRequired,
     //if finding properties has caused an error
-    hasError : PropTypes.bool.isRequired,
+    hasError: PropTypes.bool.isRequired,
     //on click on a item: function(PropertyDto)
-    onClick : PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     //on text change of the search bar function(event)
-    onChange : PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
 }
 
 /**
@@ -57,10 +57,11 @@ export default class PropertyList extends React.Component {
      * @returns {React.Component}
      */
     displayList() {
+
         if (this.props.isPending) {
-            
+
             //show loading spinner
-            return (<CircularProgress/>);
+            return (<CircularProgress />);
 
         } else if (this.props.hasError) {
 
@@ -72,16 +73,16 @@ export default class PropertyList extends React.Component {
                 </Typography>
             );
 
-        } else {
-
-            //show list
-            return (<List>
-                {this.props.properties.map((prop) => (
-                    <PropertyItem key={this.genKey(prop)} property={prop} onClick={this.props.onClick} />
-                ))}
-            </List>);
-
         }
+
+        //show list
+        return (<List>
+            {this.props.properties.map((prop) => (
+                <PropertyItem key={this.genKey(prop)} property={prop} onClick={this.props.onClick} />
+            ))}
+        </List>);
+
+
     }
 
     /**
@@ -89,10 +90,10 @@ export default class PropertyList extends React.Component {
      * @param {PropertyDto} prop
      * @returns {String} 
      */
-    genKey(prop){
-        return prop.name 
-        + prop.latidude 
-        + prop.latidude;
+    genKey(prop) {
+        return prop.name
+            + prop.latidude
+            + prop.latidude;
     }
 
 }

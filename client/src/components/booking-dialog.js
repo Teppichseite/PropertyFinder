@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 //signature
 const PROP_TYPES = {
     //Property to show
-    property : PropTypes.objectOf(PropertyDto.PropType()),
+    property : PropTypes.instanceOf(PropertyDto),
     //if commit booking is pending
     isPending : PropTypes.bool.isRequired,
     //if commit booking caused an error

@@ -1,3 +1,5 @@
+import PropertyDto from '../dtos/property-dto';
+
 const request = require('request-promise-native');
 
 const API_URL = "http://127.0.0.1:8080";
@@ -33,7 +35,9 @@ export default class ApiService{
             json : true
         });
 
-        return data.result;
+        return data.result
+            //map to PropertyDto instance
+            .map((prop) => Object.assign(new PropertyDto(), prop));
     }
 
 }

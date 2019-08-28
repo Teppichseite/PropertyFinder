@@ -52,6 +52,8 @@ export default class ApiActionHelper{
 
         }).catch((e) => {
 
+            console.log(e);
+
             dispatch(findPropsError());
 
         });

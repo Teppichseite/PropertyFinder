@@ -1,7 +1,12 @@
-body, html{
+html{
+    overflow-y: scroll;
+}
+
+body{
     height: 97%;
     margin: 0;
     background: #F5F5F5;
+    padding-right: 0px !important;
 }
 
 #root{

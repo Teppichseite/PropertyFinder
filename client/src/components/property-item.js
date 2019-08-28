@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 //signature
 const PROP_TYPES = {
     //Property to show
-    property : PropTypes.objectOf(PropertyDto.PropType()).isRequired,
+    property : PropTypes.instanceOf(PropertyDto).isRequired,
     //on click on a item: function(PropertyDto)
     onClick : PropTypes.func.isRequired,
 }

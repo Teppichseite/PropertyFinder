@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 //signature
 const PROP_TYPES = {
     //Property to show data of
-    property : PropTypes.objectOf(PropertyDto.PropType())
+    property : PropTypes.instanceOf(PropertyDto)
 }
 
 /**

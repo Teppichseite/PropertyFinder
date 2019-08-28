@@ -15,7 +15,7 @@ The server is a NodeJS application written in JavaScript.
 2. Install latest version of [MongoDB Community Server](https://www.mongodb.com/download-center/community)
 3. be in `/server`
 4. run `npm i` on command prompt
-5. Create a local-config.json file with the following properties
+5. Create a local-config.json file with the following pattern
     ```json
 
     {
@@ -28,4 +28,10 @@ The server is a NodeJS application written in JavaScript.
    ````
   Here you can get [Here Api credentials](https://developer.here.com/)
 
-Make sure the [server](https://github.com/Teppichseite/PropertyFinder/blob/master/server) is running.
+### Start Server
+1. Make sure `mongod` process of MongoDB is running
+2. run `npm start` on command prompt
+3. Server endpoint is now `http://127.0.0.1:8080/`
+
+### Web Application usage
+Open `http://127.0.0.1:8080/` in Browser

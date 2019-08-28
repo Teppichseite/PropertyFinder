@@ -1,6 +1,0 @@
-{
-    "mongodbUrl" : "mongodb://localhost:27017/PropertyProject",
-    "mongodbTestUrl" : "mongodb://localhost:27017/PropertyProjectTest",
-    "hereAppId" : "qNzSk1lVT2P84fVVMyeY",
-    "hereAppCode" : "WYBRUZj4WML3t-fAQAY3SQ"
-}

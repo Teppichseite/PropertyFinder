@@ -7,7 +7,7 @@ The client is a javascript web application.
 * [React-Redux](https://react-redux.js.org/)
 * [Material-UI](https://material-ui.com/)
 
-### SETUP
+### Setup
 1. Install [NPM](https://www.npmjs.com/)
 2. be in the folder `/client`
 3. run `npm i` on command prompt

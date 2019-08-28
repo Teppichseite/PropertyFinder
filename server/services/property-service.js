@@ -73,8 +73,6 @@ module.exports = class PropertyService{
 
         properties = properties.filter((propDto) => propDto.name);
 
-        //console.log(properties);
-
         return properties;
 
     }

@@ -69,7 +69,7 @@ describe('routes /users', () => {
             expectedResult = JSON.parse(JSON.stringify(expectedResult));
 
             let response = await request(app)
-                .get('/users/' + user.id + '/bookings')
+                .get('/users/' + user._id + '/bookings')
                 .set('Accept', 'application/json')
                 .expect(200);
 

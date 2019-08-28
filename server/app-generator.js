@@ -18,13 +18,12 @@ const path = require('path');
 module.exports = class AppGenerator{
 
     /**
-     * @param {String} serverUrl 
      * @param {String} mongodbUrl 
-     * @param {String[]} allowedOrigins 
+     * @param {boolean} logRequests 
      */
-    constructor(mongodbUrl, allowedOrigins){
+    constructor(mongodbUrl, logRequests){
         this.mongodbUrl = mongodbUrl;
-        this.allowedOrigins = allowedOrigins;
+        this.logRequests = logRequests;
         this.app = express();
         this.router = express.Router();
     }
@@ -36,7 +35,6 @@ module.exports = class AppGenerator{
     async generate(){
         await this.connectToMongoDB();
         this.setupMiddlewares();
-        //this.setupCors();
         this.setupRoutes();
         this.setupStaticFileServing();
         return this.app;
@@ -64,24 +62,10 @@ module.exports = class AppGenerator{
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(bodyParser.json());
 
-        //enable morgan logger
-        this.app.use(logger('dev'));
-    }
-
-    setupCors(){
-        //Enable cors
-        this.app.use((req, res, next) => {
-            let allowedOrigins = this.allowedOrigins;
-            let origin = req.headers.origin;
-            if(allowedOrigins.indexOf(origin) > -1){
-                res.setHeader('Access-Control-Allow-Origin', origin);
-            }
-        
-            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-            res.header('Access-Control-Allow-Credentials', true);
-            return next();
-        });
+        if(this.logRequests){
+            //enable morgan logger
+            this.app.use(logger('dev'));
+        }
     }
 
     setupRoutes(){

@@ -7,8 +7,6 @@ module.exports = class UserController {
 
         const bookingDto = req.body;
 
-        console.log(bookingDto);
-
         resWrapper.execPromise(
             req,
             res, 

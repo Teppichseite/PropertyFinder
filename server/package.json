@@ -20,11 +20,12 @@
     "request-promise-native": "^1.0.7"
   },
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "node main.js",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive --timeout 5000"
   },
   "author": "",
   "license": "ISC"

@@ -5,7 +5,7 @@ const uValidator = require("../validators/user-validator.js");
 const uController = require("../controllers/user-controller.js");
 
 router.get('/:userId/bookings', 
-    uValidator.validateFindBookingsByUserId(), 
+    uValidator.validateFindBookingsByUserId(),
     uController.findBookingsByUserId);
 
 router.post('/booking/new', 

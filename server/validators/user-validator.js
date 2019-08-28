@@ -1,10 +1,13 @@
 const { param, body } = require('express-validator');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = class UserValidator {
 
     static validateFindBookingsByUserId() {
         return [
             param('userId').exists()
+                //check for valid object id
+                .custom((id) => ObjectId(id))
         ];
     }
 
@@ -13,8 +16,8 @@ module.exports = class UserValidator {
             body('property_name').exists().isString(),
             body('longtidude').exists().isFloat(),
             body('latidude').exists().isFloat(),
-            body('fromDate').exists().isString(),
-            body('toDate').exists().isString()
+            body('from_date').exists().isString(),
+            body('to_date').exists().isString()
                 .custom(UserValidator.areDatesValid),
             body('city').optional().isString(),
             body('street').optional().isString(),
@@ -33,7 +36,7 @@ module.exports = class UserValidator {
      */
     static areDatesValid(value, { req }) {
 
-        let fromDate = new Date(req.body.fromDate);
+        let fromDate = new Date(req.body.from_date);
         let toDate = new Date(value);
 
         //check if dates are valid

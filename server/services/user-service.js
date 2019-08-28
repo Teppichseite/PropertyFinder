@@ -50,7 +50,8 @@ module.exports = class UserService{
             {
                 $setOnInsert : {
                     city : bookingDto.city,
-                    street : bookingDto.street
+                    street : bookingDto.street,
+                    url : bookingDto.url
                 }
             }
         );

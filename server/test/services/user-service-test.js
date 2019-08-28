@@ -78,13 +78,16 @@ describe('PropertyService', () => {
             let name = "prop3";
 
             await UserService.createNewBooking(
-                new BookingDto("", "", name, 90, 110, "", "", "",
+                new BookingDto("", "", name, 90, 110, "city324", "street324", "url234",
                     new Date(), new Date(), "", "User4", "user4@email.com"));
 
             let prop = await Property.findOne({ name: name });
 
             expect(prop.longtidude).to.be.eql(90);
             expect(prop.latidude).to.be.eql(110);
+            expect(prop.city).to.be.eql("city324");
+            expect(prop.street).to.be.eql("street324");
+            expect(prop.url).to.be.eql("url234");
         });
 
         it("should add booking to existing user", async () => {
@@ -141,8 +144,8 @@ describe('PropertyService', () => {
                     prop6.latidude,
                     prop6.city,
                     prop6.street,
-                    prop6.url, 
-                    user6.bookings[0].fromDate, 
+                    prop6.url,
+                    user6.bookings[0].fromDate,
                     user6.bookings[0].toDate),
 
                 new BookingDto(user6.bookings[1]._id,
@@ -152,8 +155,8 @@ describe('PropertyService', () => {
                     prop7.latidude,
                     prop7.city,
                     prop7.street,
-                    prop7.url, 
-                    user6.bookings[1].fromDate, 
+                    prop7.url,
+                    user6.bookings[1].fromDate,
                     user6.bookings[1].toDate),
 
             ];
@@ -169,9 +172,9 @@ describe('PropertyService', () => {
 
         it("should throw an error if id is not a valid object id", async () => {
             let error = false;
-            try{
+            try {
                 await UserService.findBookingsByUserId("test");
-            }catch(e){
+            } catch (e) {
                 error = true;
             }
             expect(error).to.be.eql(true);

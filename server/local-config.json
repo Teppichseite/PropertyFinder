@@ -1,5 +1,4 @@
 {
-    "serverUrl" : "127.0.0.1:8080",
     "mongodbUrl" : "mongodb://localhost:27017/PropertyProject",
     "mongodbTestUrl" : "mongodb://localhost:27017/PropertyProjectTest"
 }

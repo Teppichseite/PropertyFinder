@@ -3,16 +3,16 @@ const eqlAnyOrder = require('deep-equal-in-any-order');
 chai.use(eqlAnyOrder);
 const expect = chai.expect;
 
-const PropertyService = require('../services/property-service');
-const UserService = require('../services/user-service');
-const BookingDto = require('../dtos/booking-dto');
+const PropertyService = require('../../services/property-service');
+const UserService = require('../../services/user-service');
+const BookingDto = require('../../dtos/booking-dto');
 
-const localConfig = require('../local-config.json');
+const localConfig = require('../../local-config.json');
 const mongoose = require('mongoose');
 
-const User = require('../models/user');
-const Booking = require('../models/booking');
-const Property = require('../models/property');
+const User = require('../../models/user');
+const Booking = require('../../models/booking');
+const Property = require('../../models/property');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 describe('PropertyService', () => {

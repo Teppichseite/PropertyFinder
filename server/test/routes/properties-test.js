@@ -21,7 +21,7 @@ const Property = require('../../models/property');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 async function getExpressApp() {
-    const appGenerator = new AppGenerator(localConfig.mongodbTestUrl, false);
+    const appGenerator = new AppGenerator(localConfig.mongodbTestUrl, true);
     return (await appGenerator.generate());
 }
 

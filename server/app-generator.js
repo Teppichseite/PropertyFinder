@@ -19,11 +19,11 @@ module.exports = class AppGenerator {
 
     /**
      * @param {String} mongodbUrl 
-     * @param {boolean} logRequests 
+     * @param {boolean} testMode 
      */
-    constructor(mongodbUrl, logRequests) {
+    constructor(mongodbUrl, testMode) {
         this.mongodbUrl = mongodbUrl;
-        this.logRequests = logRequests;
+        this.testMode = testMode;
         this.app = express();
         this.router = express.Router();
     }
@@ -33,7 +33,9 @@ module.exports = class AppGenerator {
      * @returns {Promise<Express>}
      */
     async generate() {
-        await this.connectToMongoDB();
+        if(!this.testMode){
+            await this.connectToMongoDB();
+        }
         this.setupMiddlewares();
         this.setupCors();
         this.setupRoutes();
@@ -63,7 +65,7 @@ module.exports = class AppGenerator {
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(bodyParser.json());
 
-        if (this.logRequests) {
+        if (!this.testMode) {
             //enable morgan logger
             this.app.use(logger('dev'));
         }

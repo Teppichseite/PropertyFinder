@@ -13,6 +13,22 @@ import '../public/style.css';
 import PropertyDataList from './property-data-list';
 import BookingDto from '../dtos/booking-dto';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PropertyDto from '../dtos/property-dto';
+import PropTypes from 'prop-types';
+
+//signature
+const PROP_TYPES = {
+    //Property to show
+    property : PropTypes.objectOf(PropertyDto.PropType()),
+    //if commit booking is pending
+    isPending : PropTypes.bool.isRequired,
+    //if commit booking caused an error
+    hasError : PropTypes.bool.isRequired,
+    //on close dialg
+    onClose : PropTypes.func.isRequired,
+    //on commit booking: function(BookingDto)
+    onCommitBooking : PropTypes.func.isRequired
+}
 
 export default class BookingDialog extends React.Component {
 
@@ -233,3 +249,5 @@ export default class BookingDialog extends React.Component {
     }
 
 }
+
+BookingDialog.propTypes = PROP_TYPES;

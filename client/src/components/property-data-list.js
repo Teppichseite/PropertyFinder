@@ -9,6 +9,14 @@ import LocationIcon from '@material-ui/icons/MyLocation';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import LanguageIcon from '@material-ui/icons/Language';
 import Link from '@material-ui/core/Link';
+import PropertyDto from '../dtos/property-dto';
+import PropTypes from 'prop-types';
+
+//signature
+const PROP_TYPES = {
+    //Property to show data of
+    property : PropTypes.objectOf(PropertyDto.PropType())
+}
 
 /**
  * Displays property data of a booking dto
@@ -84,3 +92,5 @@ export default class PropertyDataList extends React.Component {
     }
 
 }
+
+PropertyDataList.propTypes = PROP_TYPES;

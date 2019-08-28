@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 export default class PropertyDto{
     
     /**
@@ -18,4 +19,17 @@ export default class PropertyDto{
         this.street = street;
         this.distance = distance;
     }
+
+    static PropType(){
+        return PropTypes.shape({
+            name : PropTypes.string,
+            longtidude : PropTypes.number,
+            latidude : PropTypes.number,
+            url : PropTypes.string,
+            city : PropTypes.string,
+            street : PropTypes.string,
+            distance : PropTypes.string,
+        });
+    }
+
 }

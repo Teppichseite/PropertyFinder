@@ -8,6 +8,23 @@ import SearchIcon from '@material-ui/icons/Search';
 import '../public/style.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import PropertyDto from '../dtos/property-dto';
+import PropTypes from 'prop-types';
+
+//signature
+const PROP_TYPES = {
+    //properties to show
+    properties : PropTypes.arrayOf(PropertyDto.PropType()).isRequired,
+    //if find properties is pending
+    isPending : PropTypes.bool.isRequired,
+    //if finding properties has caused an error
+    hasError : PropTypes.bool.isRequired,
+    //on click on a item: function(PropertyDto)
+    onClick : PropTypes.func.isRequired,
+    //on text change of the search bar function(event)
+    onChange : PropTypes.func.isRequired
+}
+
 /**
  * Displays a list of PropertyItems and a search bar
  */
@@ -79,3 +96,5 @@ export default class PropertyList extends React.Component {
     }
 
 }
+
+PropertyList.propTypes = PROP_TYPES;

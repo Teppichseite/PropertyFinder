@@ -4,7 +4,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { Container } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import '../public/style.css';
+
+
+//signature
+const PROP_TYPES = {
+    children : PropTypes.arrayOf(PropTypes.element).isRequired
+}
 
 /**
  * Outer frame with appbar of the application
@@ -30,3 +37,5 @@ export default class Frame extends React.Component {
     }
 
 }
+
+Frame.propTypes = PROP_TYPES;

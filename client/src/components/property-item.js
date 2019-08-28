@@ -5,6 +5,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import BusinessIcon from '@material-ui/icons/Business';
 import '../public/style.css';
 
+import PropertyDto from '../dtos/property-dto';
+import PropTypes from 'prop-types';
+
+//signature
+const PROP_TYPES = {
+    //Property to show
+    property : PropTypes.objectOf(PropertyDto.PropType()).isRequired,
+    //on click on a item: function(PropertyDto)
+    onClick : PropTypes.func.isRequired,
+}
+
 /**
  * Displays a clickable icon with a text and a static icon
  */
@@ -28,3 +39,5 @@ export default class PropertyItem extends React.Component {
     }
 
 }
+
+PropertyItem.propTypes = PROP_TYPES;

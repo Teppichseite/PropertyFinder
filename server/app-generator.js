@@ -19,7 +19,9 @@ module.exports = class AppGenerator {
 
     /**
      * @param {String} mongodbUrl 
-     * @param {boolean} testMode 
+     * @param {boolean} testMode - if test mode is true, 
+     * then the app will not connect to mongodb 
+     * and morgan logger is disabled
      */
     constructor(mongodbUrl, testMode) {
         this.mongodbUrl = mongodbUrl;
